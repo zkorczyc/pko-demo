@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PKO Bank Polski × Adobe — Jedna platforma, każdy sygnał</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;font-family:'Adobe Clean',adobe-clean,'Source Sans 3',system-ui,sans-serif;}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:#0a1628;}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;
+  background:linear-gradient(160deg,#F4F7FB 0%,#FFFFFF 55%,#EEF2F9 100%);}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;visibility:hidden;opacity:0;
+  pointer-events:none;transition:opacity .7s ease;}
+.slide.active{visibility:visible;opacity:1;pointer-events:auto;z-index:1;}
+*{box-sizing:border-box;}
+:root{
+  --navy:#0B2545;--navy-mid:#0053A6;--ink:#15203A;--grey:#5B6573;--soft:#8A94A6;
+  --red:#C10016;--red-dk:#93000F;--teal:#0E8E6D;--teal-dk:#0B5C46;--line:#E2E8F2;
+}
+.phasebar{position:absolute;left:120px;bottom:60px;display:flex;gap:10px;z-index:6;}
+.phasebar .ph{font-size:15px;font-weight:600;color:var(--soft);background:#EEF1F7;border:1px solid var(--line);padding:8px 20px;border-radius:8px;}
+.phasebar .ph.on{color:#fff;background:var(--navy);border-color:var(--navy);}
+.phase-pill{position:absolute;top:54px;left:120px;z-index:8;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);background:#EEF2F8;border:1px solid var(--line);padding:8px 18px;border-radius:999px;}
+.phase-pill.ret{background:#F0FAF7;border-color:rgba(14,142,109,.28);color:#0a6b4f;}
+/* Section divider */
+.divider{position:absolute;inset:0;background:linear-gradient(160deg,#0B2545,#0053A6);display:grid;place-items:center;text-align:center;overflow:hidden;}
+.divider .glw{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(193,0,22,.18),transparent 55%);}
+.divider .pk{font-size:20px;letter-spacing:.3em;text-transform:uppercase;color:#ff8fa3;}
+.divider h1{font-size:128px;font-weight:300;color:#fff;margin:14px 0 6px;line-height:1;}
+.divider .ph-sub{font-size:30px;color:rgba(255,255,255,.8);max-width:1000px;line-height:1.4;}
+.divider .ph-tag{font-size:52px;font-weight:600;color:#fff;margin:10px 0 0;line-height:1.15;letter-spacing:-.01em;}
+.divider .pill{margin-top:26px;display:inline-block;border:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.9);font-size:16px;letter-spacing:.18em;text-transform:uppercase;padding:9px 22px;border-radius:999px;}
+/* Image placeholder — replace with real screenshot when ready */
+.img-ph{background:linear-gradient(135deg,#EEF2F8,#F8FAFC);border:2px dashed #C5D0E0;border-radius:16px;display:grid;place-items:center;color:var(--soft);font-size:15px;font-weight:600;letter-spacing:.06em;text-align:center;padding:24px;width:100%;height:100%;}
+.img-ph span{display:block;font-size:13px;font-weight:400;margin-top:8px;opacity:.8;}
+.phone-frame{width:380px;height:100%;max-height:780px;background:#111;border-radius:36px;padding:12px;box-shadow:0 30px 70px rgba(16,32,70,.25);}
+.phone-frame .inner{border-radius:28px;overflow:hidden;height:100%;width:100%;background:#fff;}
+.browser{width:100%;height:100%;background:#fff;border-radius:16px;border:1px solid #DCE3EE;box-shadow:0 30px 70px rgba(16,32,70,.20);overflow:hidden;display:flex;flex-direction:column;}
+.bbar{height:44px;background:#F1F4F9;border-bottom:1px solid #E4E9F2;display:flex;align-items:center;gap:8px;padding:0 16px;flex-shrink:0;}
+.bbar .d{width:11px;height:11px;border-radius:50%;background:#DCE3EE;}
+.bbar .u{margin-left:18px;font-size:14px;color:#7A8498;background:#fff;border:1px solid #E4E9F2;border-radius:6px;padding:5px 14px;flex:1;max-width:520px;}
+.browser .mockbody{flex:1;overflow:hidden;}
+.persona{position:absolute;left:120px;bottom:120px;display:flex;align-items:center;gap:14px;z-index:6;}
+.persona .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:19px;box-shadow:0 4px 12px rgba(14,42,94,.3);}
+.persona .nm{font-size:19px;font-weight:600;color:var(--ink);}
+.adobe-foot{position:absolute;right:60px;bottom:58px;height:26px;z-index:6;opacity:.9;}
+.adobe-foot img{height:100%;display:block;}
+.numdisc{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:30px;font-weight:700;
+  background:linear-gradient(150deg,var(--red),var(--red-dk));box-shadow:0 8px 20px rgba(193,0,22,.35);}
+@keyframes rise{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
+@keyframes pop{from{opacity:0;transform:scale(.7);}to{opacity:1;transform:scale(1);}}
+.slide.active .a1{animation:rise 1s .15s both cubic-bezier(.22,1,.36,1);}
+.slide.active .a2{animation:rise 1s .33s both cubic-bezier(.22,1,.36,1);}
+.slide.active .a3{animation:rise 1s .51s both cubic-bezier(.22,1,.36,1);}
+.slide.active .a4{animation:rise 1s .69s both cubic-bezier(.22,1,.36,1);}
+.slide.active .a5{animation:rise 1s .87s both cubic-bezier(.22,1,.36,1);}
+.slide.active .pp{animation:pop .85s .75s both cubic-bezier(.22,1,.36,1);}
+/* COVER */
+.cover{display:flex;align-items:center;justify-content:center;text-align:center;background:#fff;}
+.cover .glow{position:absolute;inset:0;background:radial-gradient(ellipse at 78% 12%,rgba(193,0,22,.12),transparent 50%),radial-gradient(ellipse at 12% 92%,rgba(11,37,69,.10),transparent 52%);pointer-events:none;}
+.cover-inner{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;padding:0 120px;}
+.cv-lock{display:flex;align-items:center;gap:54px;margin-bottom:34px;}
+.cv-lock .cv-pko-logo{height:88px;}
+.cv-lock .x{font-size:52px;color:#C4CCDA;font-weight:300;}
+.cv-lock .ad{height:78px;}
+.cv-rule{width:120px;height:3px;background:var(--red);margin:6px auto 30px;border-radius:2px;}
+.cv-title{font-size:104px;font-weight:300;color:var(--navy);line-height:.98;letter-spacing:-.01em;margin:0;}
+.cv-sub{font-size:32px;font-weight:600;color:var(--red);margin:18px 0 0;letter-spacing:.02em;}
+.cv-meta{font-size:20px;color:var(--soft);margin-top:26px;letter-spacing:.22em;text-transform:uppercase;}
+/* Acts overview (dark) */
+.overview{position:absolute;inset:0;background:linear-gradient(170deg,#0B2545 0%,#0053A6 65%,#0B3E82 100%);overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
+.overview .sea{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 18%,rgba(255,255,255,.08),transparent 55%);}
+.overview h2{position:relative;font-size:60px;font-weight:800;color:#fff;letter-spacing:.01em;margin:0 0 18px;padding-left:120px;}
+.overview .sub{position:relative;font-size:22px;color:rgba(255,255,255,.75);max-width:1080px;line-height:1.5;padding-left:120px;margin-bottom:70px;}
+.act-chain{position:relative;display:flex;align-items:center;justify-content:center;gap:26px;padding:0 120px;}
+.act-chain .node{width:300px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:26px 24px;text-align:center;}
+.act-chain .node .n{width:48px;height:48px;border-radius:50%;background:var(--red);display:grid;place-items:center;margin:0 auto 14px;font-weight:700;color:#fff;font-size:18px;}
+.act-chain .node .nl{font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;}
+.act-chain .node .ns{font-size:15px;color:rgba(255,255,255,.68);line-height:1.4;}
+.act-chain .arr{font-size:30px;color:rgba(255,255,255,.5);}
+/* Two/three perspectives */
+.tp{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.tp h2{font-size:60px;font-weight:300;color:var(--navy);margin:0 0 56px;}
+.tp .row{display:flex;gap:34px;}
+.pcard{width:380px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:38px 34px;box-shadow:0 22px 54px rgba(16,32,70,.12);text-align:center;}
+.pcard .av{width:104px;height:104px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;color:#fff;font-size:44px;font-weight:300;}
+.pcard .nm{font-size:28px;font-weight:700;color:var(--ink);}
+.pcard .rl{font-size:17px;color:var(--red);font-weight:700;letter-spacing:.04em;margin:4px 0 16px;}
+.pcard .ds{font-size:18px;color:var(--grey);line-height:1.5;min-height:130px;}
+.pcard .tg{margin-top:14px;display:inline-block;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 16px;border-radius:999px;}
+.tg.cust{background:var(--navy);color:#fff;}.tg.prac{background:var(--red);color:#fff;}
+/* STORY LEFT */
+.story{position:absolute;left:120px;top:108px;width:740px;z-index:5;}
+.story.wide{width:1680px;max-width:calc(100% - 240px);}
+.story .htitle{font-size:54px;font-weight:700;color:var(--navy);line-height:1.05;margin:20px 0 12px;letter-spacing:-.01em;}
+.story .profilebar{position:relative;width:100%;max-width:740px;min-height:40px;margin:0 0 16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;z-index:1;}
+.story .narr{font-size:22px;line-height:1.5;color:var(--grey);margin:0 0 18px;}
+.quote{border-left:4px solid var(--red);background:#FEF3F3;padding:15px 22px;border-radius:0 10px 10px 0;font-size:21px;font-style:italic;color:var(--navy);margin:0 0 20px;}
+.claudia-lab{font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin:0 0 8px;}
+.prodcard{background:#EEF2F8;border:1px solid var(--line);border-radius:12px;padding:15px 20px;font-size:18px;line-height:1.45;color:var(--ink);margin:0 0 18px;}
+.takeaway{border-left:4px solid var(--navy);padding:6px 0 6px 18px;font-size:20px;font-weight:700;color:var(--navy);line-height:1.4;}
+.profilebar .plab{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-right:2px;flex-shrink:0;}
+.profilebar .pp{font-size:15px;font-weight:600;color:var(--navy);background:#EEF2F8;border:1px solid var(--line);padding:6px 13px;border-radius:999px;white-space:nowrap;}
+.profilebar .pp.np{background:linear-gradient(120deg,#FEF0F0,#fff);border-color:var(--red);color:#a00;}
+/* SCREEN RIGHT */
+.screen{position:absolute;right:90px;top:118px;width:940px;height:846px;z-index:4;}
+.screen.screen-device{right:170px;width:380px;left:auto;display:flex;align-items:center;justify-content:center;}
+/* fp list (numbered points) */
+.fp-hero{border-left:5px solid var(--red);background:linear-gradient(120deg,#FEF3F3,#fff);padding:14px 20px;border-radius:0 12px 12px 0;margin:0 0 14px;font-size:21px;font-weight:700;color:var(--navy);line-height:1.32;}
+.fp-points{display:flex;flex-direction:column;gap:8px;margin:0 0 16px;}
+.fp-point{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;box-shadow:0 6px 18px rgba(16,32,70,.05);}
+.fp-point .ic{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:linear-gradient(150deg,var(--navy),#04101f);color:#fff;font-size:14px;font-weight:700;}
+.fp-point .tx{font-size:16px;line-height:1.34;color:var(--ink);}
+.fp-point .tx strong{color:var(--navy);}
+/* Persona intro */
+.pintro{position:absolute;inset:0;display:flex;align-items:center;gap:70px;padding:0 130px;}
+.portrait{width:440px;height:660px;border-radius:26px;flex-shrink:0;position:relative;overflow:hidden;box-shadow:0 30px 70px rgba(16,32,70,.22);
+  background:linear-gradient(160deg,var(--navy),#04101f);display:grid;place-items:center;}
+.portrait.acc-red{background:linear-gradient(160deg,var(--red),var(--red-dk));}
+.portrait.acc-teal{background:linear-gradient(160deg,var(--teal),var(--teal-dk));}
+.portrait .ini{font-size:220px;font-weight:300;color:rgba(255,255,255,.92);}
+.portrait .tag{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);z-index:1;text-shadow:0 1px 8px rgba(0,0,0,.4);}
+.pbody{flex:1;}
+.pbody .pk{font-size:18px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);font-weight:700;}
+.pbody h2{font-size:76px;font-weight:300;color:var(--navy);margin:8px 0 18px;line-height:1;}
+.pbody .pr{font-size:25px;color:var(--grey);margin:0 0 26px;}
+.pblock{margin-bottom:18px;}
+.pblock .bl{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);font-weight:700;margin-bottom:6px;}
+.pblock .bt{font-size:20px;color:var(--ink);line-height:1.45;}
+.chips{display:flex;flex-wrap:wrap;gap:10px;}
+.chips span{background:#EEF2F8;border:1px solid var(--line);color:var(--navy);font-size:16px;font-weight:600;padding:8px 16px;border-radius:999px;}
+/* Executive summary */
+.benefit-lab{font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin:0 0 12px;}
+.benefit-list{margin:0 0 20px;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;max-width:1400px;}
+.benefit-list li{font-size:19px;line-height:1.4;color:var(--grey);padding-left:14px;border-left:3px solid var(--navy);}
+.benefit-list li strong{color:var(--navy);}
+/* Closing */
+.closing{position:absolute;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;}
+.closing .glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 10%,rgba(193,0,22,.10),transparent 55%);pointer-events:none;}
+.closing-inner{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;padding:0 120px;}
+.closing .thanks{font-size:104px;font-weight:300;color:var(--navy);line-height:1;margin:0;letter-spacing:-.01em;}
+.closing .ad-logo{height:78px;margin-top:56px;}
+.hint{position:absolute;right:30px;top:26px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);z-index:30;}
+.counter{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:14px;letter-spacing:.14em;color:var(--soft);z-index:30;font-weight:600;}
+.counter b{color:var(--navy);}
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+<div class="deck-stage">
+
+<!-- SLIDE 0: COVER -->
+<section class="slide cover active">
+  <div class="glow"></div>
+  <div class="cover-inner">
+    <div class="cv-lock a2">
+      <img class="cv-pko-logo" src="assets/pko-logo.png" alt="PKO Bank Polski">
+      <div class="x">×</div>
+      <img class="ad" src="adobe-wordmark-red.svg" alt="Adobe">
+    </div>
+    <div class="cv-rule a3"></div>
+    <h1 class="cv-title a3">Jedna platforma.<br>Każdy sygnał.</h1>
+    <p class="cv-sub a4">Pozyskanie · Retencja</p>
+    <p class="cv-meta a5">PKO Bank Polski · Lipiec 2026</p>
+  </div>
+</section>
+
+<!-- SLIDE 1: TWO ACTS OVERVIEW -->
+<section class="slide">
+  <div class="overview">
+    <div class="sea"></div>
+    <h2 class="a1">Dwa akty, jedna platforma</h2>
+    <p class="sub a2">Pozyskanie znajduje Michała, zanim złoży wniosek. Retencja odzyskuje Zofię, gdy zmienia się jej życie — nie gdy rezygnuje z karty.</p>
+    <div class="act-chain a3">
+      <div class="node"><div class="n">1</div><div class="nl">Reklama i wniosek</div><div class="ns">Pozyskanie — Michał</div></div>
+      <div class="arr">→</div>
+      <div class="node"><div class="n">2</div><div class="nl">Aktywacja</div><div class="ns">Karta w portfelu, ranked oferty</div></div>
+      <div class="arr">→</div>
+      <div class="node"><div class="n">3</div><div class="nl">Odzyskiwanie</div><div class="ns">Retencja — Zofia</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2: THREE PERSPECTIVES -->
+<section class="slide tp">
+  <h2 class="a1">Trzy postacie, jedna platforma</h2>
+  <div class="row a2">
+    <div class="pcard a3"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał Kowalski</div><div class="rl">Pozyskanie</div><div class="ds">Audiencja RTCDP Collaboration z Allegro → spersonalizowana reklama → wniosek o PKO Mastercard Platinum → natychmiastowa decyzja.</div><span class="tg cust">Klient</span></div>
+    <div class="pcard a4"><div class="av" style="background:linear-gradient(150deg,var(--teal),var(--teal-dk));">Z</div><div class="nm">Zofia Wiśniewska</div><div class="rl">Retencja</div><div class="ds">Klientka Przejrzystej karty kredytowej od 5 lat — życie się zmieniło, wydatki przeniosły się na BLIK. Odzyskanie przez trafność, nie kolejną promocję lifestyle'ową.</div><span class="tg cust">Klientka</span></div>
+    <div class="pcard a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina Nowak</div><div class="rl">Kierowniczka ds. marketingu cyfrowego</div><div class="ds">Segmenty, Journey w AJO, decyzje next-best-action i CJA — jedna praktyczka na oba akty.</div><span class="tg prac">Praktyczka</span></div>
+  </div>
+</section>
+
+<!-- ACT 01 TITLE -->
+<section class="slide divider">
+  <div class="glw"></div>
+  <div class="pk a1">01</div>
+  <h1 class="a2">Pozyskanie</h1>
+  <p class="ph-tag a3">Zdobądź właściwego klienta</p>
+  <p class="ph-sub a4">Zasięg bezpieczny dla prywatności → spersonalizowany przekaz → natychmiastowa decyzja i pełna aktywacja w web i aplikacji.</p>
+  <div class="pill a5">PKO Mastercard Platinum · Pozyskanie przez współpracę danych</div>
+</section>
+
+<!-- MEET KAROLINA -->
+<section class="slide">
+  <div class="pintro">
+    <div class="portrait acc-red a1"><div class="ini">K</div><div class="tag">Praktyczka</div></div>
+    <div class="pbody a2">
+      <div class="pk">Poznaj Karolinę</div>
+      <h2>Karolina Nowak, 41 lat</h2>
+      <p class="pr">Kierowniczka ds. marketingu cyfrowego, PKO Bank Polski</p>
+      <div class="pblock"><div class="bl">Odpowiedzialność</div><div class="bt">Odpowiada za efektywność pozyskania, retencję, program poleceń i raportowanie CJA dla wszystkich produktów kartowych.</div></div>
+      <div class="pblock"><div class="bl">Dzisiejszy stack</div><div class="bt">PKO już dziś prowadzi <strong>e-maile wyzwalane zdarzeniami</strong> i automatyzację marketingu. Luka nie polega na braku automatyzacji — kanały działają na <strong>osobnych danych</strong>, strony lądowania zarządzane są <strong>wariant po wariancie</strong>, a zespoły nie widzą jednego klienta od reklamy po odzyskanie na <strong>jednym profilu</strong>.</div></div>
+      <div class="pblock"><div class="bl">Co się zmienia</div><div class="bt"><strong>Zintegrowane profile</strong> · <strong>spersonalizowane strony lądowania</strong> · <strong>decyzje next-best-action</strong> · <strong>skoordynowany Journey w AJO</strong> na wielu kanałach.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MEET MICHAŁ -->
+<section class="slide">
+  <div class="pintro">
+    <div class="portrait a1"><div class="ini">M</div><div class="tag">Klient</div></div>
+    <div class="pbody a2">
+      <div class="pk">Kogo szuka Karolina?</div>
+      <h2>Ludzi takich jak Michał.</h2>
+      <p class="pr">Michał Kowalski, 38 lat · Kierownik projektu · Warszawa</p>
+      <div class="pblock"><div class="bl">Kim jest</div><div class="bt">Udana kariera, napięty grafik — regularnie kupuje online i kilka razy w roku podróżuje służbowo lub prywatnie za granicę.</div></div>
+      <div class="pblock"><div class="bl">Dzisiejsza aktywność</div><div class="bt">Aktywny użytkownik <strong>Allegro</strong> — częste zakupy online, czasem rezerwuje loty i hotele. <strong>Nie jest jeszcze klientem PKO.</strong> Idealny kandydat do pozyskania: wysoka siła nabywcza, duża aktywność cyfrowa.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACQ STEP 1: FIND MICHAŁ -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">1</div>
+    <h2 class="htitle a2">Znajdź Michała — bez udostępniania danych klientów</h2>
+    <div class="fp-hero a2">RTCDP Collaboration · dopasowanie danych własnych do danych własnych</div>
+    <p class="narr a3"><strong>RTCDP Collaboration</strong> to jedna z dróg, by pójść dalej — dopasowanie danych PKO do danych <strong>Allegro</strong> w bezpiecznym clean roomie. Żadne adresy e-mail ani listy nie są wymieniane. Michał nie złożył jeszcze wniosku, a Karolina już widzi część wspólną.</p>
+    <div class="profilebar a3"><span class="plab">Audiencje Michała</span><span class="pp">Aktywny kupujący online</span><span class="pp np">Częste zakupy Allegro</span><span class="pp np">Potencjał podróżniczy</span></div>
+    <div class="fp-points a4">
+      <div class="fp-point"><div class="ic">1</div><div class="tx"><strong>Wyższa jakość audiencji</strong> niż szerokie targetowanie czy pliki cookie stron trzecich.</div></div>
+      <div class="fp-point"><div class="ic">2</div><div class="tx"><strong>Clean room</strong> — wgląd partnera bez udostępniania danych osobowych.</div></div>
+      <div class="fp-point"><div class="ic">3</div><div class="tx"><strong>Jedno kliknięcie</strong> do Meta, Google lub kanałów własnych.</div></div>
+    </div>
+    <div class="takeaway a5">Znajdź osoby podobne do Michała, zanim sami do Ciebie trafią.</div>
+  </div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/collaboration</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP Collaboration — audiencje PKO × Allegro</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 2: INSTAGRAM AD -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">2</div>
+    <h2 class="htitle a2">Reklama, która mówi tak, jak on już żyje</h2>
+    <div class="profilebar a2"><span class="plab">Profil Michała</span><span class="pp">Aktywny kupujący online</span><span class="pp np">Częste zakupy Allegro</span><span class="pp np">Potencjał podróżniczy</span></div>
+    <p class="narr a3">Michał przegląda Instagrama. To nie zwykła reklama karty kredytowej — to sponsorowany post PKO powiązany z zachowaniem, które już zna.</p>
+    <div class="quote a4">"Płacisz online codziennie. Teraz zyskaj ubezpieczenie podróżne w cenie."</div>
+    <div class="claudia-lab a4">Telefon Michała</div>
+    <div class="prodcard a5">Audiencje z Collaboration aktywowane na Meta — <strong>Aktywny kupujący online</strong>, <strong>Częste zakupy Allegro</strong>, <strong>Potencjał podróżniczy</strong>.</div>
+    <div class="takeaway a5">Nie dołącza do nowego programu — zyskuje więcej z tego, co już robi.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>Instagram — post sponsorowany PKO Mastercard Platinum</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 3: MOBILE LANDING -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">3</div>
+    <h2 class="htitle a2">Spersonalizowany landing na telefonie</h2>
+    <div class="profilebar a2"><span class="plab">Profil Michała</span><span class="pp">Segment podróżniczy</span><span class="pp">Kampania przypisana</span><span class="pp np">Wizyta mobilna</span></div>
+    <p class="narr a3">Michał klika reklamę i trafia na <strong>pkobp.pl</strong> na telefonie. Strona już wie, że interesuje go ubezpieczenie podróżne — nagłówek mówi wprost, a wniosek trwa mniej niż 5 minut.</p>
+    <div class="quote a4">"Płać wygodnie i podróżuj bezpiecznie — z ubezpieczeniem w cenie karty."</div>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="prodcard a5">Experience Decisioning dobiera baner, korzyści i CTA na podstawie profilu Michała — jeden model strony, personalizacja dla każdego odwiedzającego.</div>
+    <div class="takeaway a5">Jeden URL, wiele twarzy — bez mnożenia wariantów landing page.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>pkobp.pl — mobilny landing PKO Mastercard Platinum</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 4: PROFILE STITCHING -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">4</div>
+    <h2 class="htitle a2">Michał poznaje ofertę</h2>
+    <p class="narr a3">Za tą stroną Karolina widzi to, czego Michał nie widzi. Pierwsze kliknięcie połączyło ID kampanii z anonimowym profilem brzegowym — <strong>Zainteresowanie kartą podróżną</strong>, wynik <strong>0.87</strong>. Wciąż anonimowy, ale personalizacja zaczęła się już przy kliknięciu.</p>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="prodcard a5">RTCDP zszywa ID kampanii z ECID w czasie rzeczywistym — profil rośnie, zanim ktokolwiek poda dane osobowe.</div>
+    <div class="takeaway a5">Personalizacja zaczyna się o krok wcześniej, niż większość zespołów myśli.</div>
+  </div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/profile</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP — profil brzegowy, wynik zainteresowania 0.87</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 5: APPLY -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">5</div>
+    <h2 class="htitle a2">Wniosek na telefonie</h2>
+    <p class="narr a3">Michał składa wniosek na urządzeniu mobilnym — cztery kroki, część pól uzupełniona automatycznie. ID wniosku zszyty z ECID. Nie ma jeszcze aplikacji IKO — to realistyczne dla nowego klienta.</p>
+    <div class="claudia-lab a4">Telefon Michała</div>
+    <div class="takeaway a5">Realistyczna droga: mobile web najpierw, aplikacja po zatwierdzeniu.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>pkobp.pl — wniosek o PKO Mastercard Platinum, krok 3 z 4</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 6: INSTANT DECISION -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">6</div>
+    <h2 class="htitle a2">Natychmiastowa decyzja</h2>
+    <p class="narr a3">Michał wysyła wniosek — na ścieżce natychmiastowej ekran sukcesu pojawia się od razu. Weryfikacja działa w tle; strona mówi: sprawdź e-mail i SMS w ciągu kilku minut. Pobranie aplikacji IKO to CTA na ekranie.</p>
+    <div class="takeaway a5">Aktywacja nie czeka na papierową pocztę — zaczyna się natychmiast.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>Ekran potwierdzenia — wniosek przyjęty, sprawdź e-mail</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 7: APPROVAL EMAIL (real template embedded) -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">7</div>
+    <h2 class="htitle a2">W skrzynce e-mail — potwierdzenie zatwierdzenia</h2>
+    <p class="narr a3">Po zakończonej weryfikacji AJO wysyła e-mail w ciągu kilku minut — zatwierdzenie potwierdzone, link do pobrania aplikacji, kolejne kroki. To jest <strong>ten sam szablon e-mail</strong>, który zbudowaliśmy dla PKO — nie makieta.</p>
+    <div class="claudia-lab a4">Telefon Michała</div>
+    <div class="prodcard a5">Prawdziwy szablon HTML z <code>pko/email-templates/examples/approval-marek.html</code> — gotowy do wgrania do AJO. Kliknij strzałki, by przejść dalej (kliknięcie w e-mail nie zmienia slajdu).</div>
+    <div class="takeaway a5">Prawdziwy e-mail, nie zrzut ekranu.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><iframe src="../email-templates/examples/approval-marek.html" style="width:100%;height:100%;border:0;background:#fff;" title="PKO — e-mail zatwierdzenia karty"></iframe></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 8: SMS -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">8</div>
+    <h2 class="htitle a2">SMS — jedno dotknięcie</h2>
+    <p class="narr a3">SMS przychodzi zaraz po weryfikacji — w ciągu kilku minut, ta sama wiadomość co e-mail. Michał nie musi niczego szukać.</p>
+    <div class="takeaway a5">Kanał, który klient faktycznie otwiera od razu.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>SMS — "Twoja karta PKO Mastercard Platinum została zatwierdzona. Pobierz IKO: [link]"</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 9: DOWNLOAD APP / WALLET -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">9</div>
+    <h2 class="htitle a2">Pobierz aplikację — dodaj kartę do portfela</h2>
+    <p class="narr a3">Pobranie aplikacji <strong>IKO</strong>, karta w Google/Apple Wallet. Aktywacja to nie "zatwierdzone w systemie" — to karta gotowa do użycia jeszcze dziś.</p>
+    <div class="takeaway a5">Od zatwierdzenia do pierwszej płatności — bez zbędnych kroków.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>IKO — dodaj kartę PKO Mastercard Platinum do portfela</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 10: RICH PROFILE -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">10</div>
+    <h2 class="htitle a2">Bogaty profil Michała</h2>
+    <p class="narr a3">Zunifikowany profil: źródło pozyskania, powiązania z Allegro, sygnały wydatków, zaangażowanie. Karolina widzi jednego klienta, nie silosy kanałowe.</p>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="takeaway a5">Jeden profil od anonimowego kliknięcia po aktywnego posiadacza karty.</div>
+  </div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/profile/michal</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP — profil Michała: pozyskanie, Allegro, wydatki, zaangażowanie</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 11: APP HOME RANKED -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">11</div>
+    <h2 class="htitle a2">Ekran główny aplikacji — dopasowany dla Michała</h2>
+    <p class="narr a3">Michał otwiera IKO po zatwierdzeniu — ekran główny od razu dopasowany. Decisioning stawia ubezpieczenie podróżne i korzyści Platinum na górze; płatności BLIK i historia Allegro widoczne niżej.</p>
+    <div class="takeaway a5">Personalizacja od pierwszego dnia, nie po miesiącach danych.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>IKO — ekran główny, ranking ofert dla Michała</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 12: WEB MATCHES APP -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">12</div>
+    <h2 class="htitle a2">Web zgodny z aplikacją</h2>
+    <p class="narr a3">Michał loguje się na pkobp.pl — ekran główny posiadacza PKO Mastercard Platinum z ubezpieczeniem podróżnym, korzyściami partnerskimi i saldem programu. Ten sam silnik Experience Decisioning co w aplikacji.</p>
+    <div class="takeaway a5">Ta sama rozmowa — telefon czy przeglądarka, nieważne.</div>
+  </div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">pkobp.pl/moje-konto</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>pkobp.pl — zalogowany profil Michała</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACQ STEP 13: SMARTER PAID MEDIA -->
+<section class="slide" data-phase="acq">
+  <div class="phase-pill a1">01 · Pozyskanie</div>
+  <div class="story a1">
+    <div class="numdisc a1">13</div>
+    <h2 class="htitle a2">Mądrzejsze media płatne — automatycznie</h2>
+    <p class="narr a3">Michał właśnie aktywował PKO Mastercard Platinum — PKO przestaje pokazywać mu reklamy "Złóż wniosek". Jednocześnie jego profil zasila grupę aktywowanych klientów, która pomaga znaleźć kolejnego Michała.</p>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="prodcard a5">Dwie rzeczy dzieją się bez ruchu ze strony Karoliny: Michał trafia na <strong>listę suppresji</strong>, a aktywni klienci tacy jak on zasilają <strong>audiencję lookalike</strong> na kolejną falę pozyskania.</div>
+    <div class="takeaway a5">Konwersja klienta → koniec reklam pozyskaniowych → jego profil pomaga znaleźć kolejnych takich jak on.</div>
+  </div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/destinations</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP Destinations — suppresja i lookalike</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
+  <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- ACT 02 TITLE -->
+<section class="slide divider">
+  <div class="glw"></div>
+  <div class="pk a1">02</div>
+  <h1 class="a2">Retencja</h1>
+  <p class="ph-tag a3">Odzyskaj z trafnością</p>
+  <p class="ph-sub a4">Michał pokazał, jak zdobyć właściwego klienta. Zofia pokazuje, co się dzieje, gdy życie obecnej klientki się zmienia — a przekaz marketingowy nie.</p>
+  <div class="pill a5">Przejrzysta karta kredytowa · Odzyskiwanie klientów</div>
+</section>
+
+<!-- MEET ZOFIA -->
+<section class="slide">
+  <div class="pintro">
+    <div class="portrait acc-teal a1"><div class="ini">Z</div><div class="tag">Retencja</div></div>
+    <div class="pbody a2">
+      <div class="pk">Poznaj Zofię</div>
+      <h2>Zofia Wiśniewska, 34 lata</h2>
+      <p class="pr">Kierowniczka ds. marketingu · Warszawa</p>
+      <div class="pblock"><div class="bl">Relacja z kartą</div><div class="bt">Pięć lat z <strong>Przejrzystą kartą kredytową</strong> — jedna z klientek, które PKO uważało za wzorcowe. Zakupy online, restauracje, moda, podróże. Rabaty z programu <strong>Visa Benefit</strong> naprawdę jej się przydawały.</div></div>
+      <div class="pblock"><div class="bl">Styl życia</div><div class="bt">Singielka, często podróżowała, wysokie zaangażowanie w kampanie <strong>lifestyle i moda</strong>. Klientka, o której PKO myślało, że dobrze ją zna.</div></div>
+      <div class="pblock"><div class="bl">Segment startowy</div><div class="chips"><span>Przejrzysta karta kredytowa</span><span>Entuzjaści lifestyle</span><span>Wysokie zaangażowanie</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ZOFIA — LIFE CHANGED -->
+<section class="slide">
+  <div class="pintro">
+    <div class="portrait acc-teal a1"><div class="ini">Z</div><div class="tag">Życie się zmieniło</div></div>
+    <div class="pbody a2">
+      <div class="pk">Wtedy vs teraz</div>
+      <h2>Jej życie się zmieniło — przekaz nie</h2>
+      <p class="pr">Mężatka · Mała córka · Warszawa</p>
+      <div class="pblock"><div class="bl">Teraz</div><div class="bt">Mężatka, mała córka, wspólne finanse. Wydatki przeniosły się na <strong>BLIK</strong>, zakupy spożywcze i aptekę — z dala od mody i restauracji.</div></div>
+      <div class="pblock"><div class="bl">Zmiana zachowania</div><div class="bt">Wydatki na kartę spadły o ok. 70%. Otwieralność e-maili załamała się. PKO wciąż wysyłało <strong>Modę i lifestyle</strong> — niewłaściwą rozmowę przez dwa lata.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RET STEP 1: RELEVANCE -->
+<section class="slide" data-phase="ret">
+  <div class="phase-pill ret a1">02 · Retencja</div>
+  <div class="story a1">
+    <div class="numdisc a1">1</div>
+    <h2 class="htitle a2">Trafność — nie niezadowolenie</h2>
+    <p class="narr a3">Oś czasu profilu Zofii: <strong>2019–2021</strong> zakupy online, restauracje, moda — potem życie się zmieniło. <strong>2022–dziś</strong> mąż, córka, zakupy spożywcze, apteka, BLIK. Marketing wciąż wysyłał kampanie <strong>Moda · Lifestyle</strong>. Niewłaściwy przekaz przez dwa lata.</p>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="prodcard a5">Zunifikowany profil RTCDP — ewolucja kategorii wydatków + nakładka historii kampanii. Problem nie leżał w karcie. Leżał w rozmowie.</div>
+    <div class="takeaway a5">Trafność dopasowana do etapu życia — historia, którą PKO kontroluje samodzielnie.</div>
+  </div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/profile/zofia</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP — profil Zofii, oś czasu wydatków i kampanii</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--teal),var(--teal-dk));">Z</div><div class="nm">Zofia</div></div>
+  <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- RET STEP 2: SEGMENT -->
+<section class="slide" data-phase="ret">
+  <div class="phase-pill ret a1">02 · Retencja</div>
+  <div class="story a1">
+    <div class="numdisc a1">2</div>
+    <h2 class="htitle a2">Wykryta zmiana etapu życia</h2>
+    <p class="narr a3">Karolina buduje segment <strong>Wysokie ryzyko odejścia — obecni posiadacze kart</strong>: spadek wydatków, wzrost BLIK, brak reakcji na e-maile. <strong>Zofia Wiśniewska jest w tej audiencji</strong> — mężatka, młoda mama, wydatki przeniosły się z mody na zakupy spożywcze. Wciąż klientka. Tylko nie ta sama, do której PKO mówiło.</p>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="prodcard a5">Reguły audiencji: spadek wydatków, zmiana udziału w portfelu, wzrost BLIK, brak zaangażowania w e-maile lub oferty od 6–12 miesięcy.</div>
+    <div class="takeaway a5">Wyłapać zmianę życia wcześnie — zanim klientka po prostu odejdzie w milczeniu.</div>
+  </div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/audiences/new</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP — budowa audiencji "Wysokie ryzyko odejścia"</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
+  <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- RET STEP 3: DECISIONING -->
+<section class="slide" data-phase="ret">
+  <div class="phase-pill ret a1">02 · Retencja</div>
+  <div class="story a1">
+    <div class="numdisc a1">3</div>
+    <h2 class="htitle a2">Kto dostaje jaką ofertę</h2>
+    <p class="narr a3">Karolina buduje kampanię odzyskania dla audiencji wysokiego ryzyka — kilka ofert gotowych: <strong>korzyści rodzinne na co dzień</strong>, <strong>wgląd w wydatki</strong>, <strong>rabaty na zakupy spożywcze</strong>. Nie wybiera dla każdej osoby osobno — robi to <strong>Experience Decisioning</strong>. Dla Zofii wygrywają korzyści rodzinne <strong>(0.91)</strong>. Moda i lifestyle zostają wyciszone.</p>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="prodcard a5">Karolina ustawia kampanię i pulę ofert. Experience Decisioning wybiera, co widzi Zofia — na podstawie reguł, skłonności i limitów.</div>
+    <div class="takeaway a5">Karolina projektuje kampanię. AI decyduje o ofercie.</div>
+  </div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">ajo.adobe.com/decisioning</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>AJO Experience Decisioning — ranking ofert dla Zofii</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
+  <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- RET STEP 4: JOURNEY LIVE -->
+<section class="slide" data-phase="ret">
+  <div class="phase-pill ret a1">02 · Retencja</div>
+  <div class="story a1">
+    <div class="numdisc a1">4</div>
+    <h2 class="htitle a2">Journey dla klientów z ryzykiem odejścia — na żywo</h2>
+    <p class="narr a3">Karolina publikuje jeden <strong>Journey</strong> odzyskania (AJO) dla całej audiencji <strong>Wysokie ryzyko odejścia</strong> — nie osobno dla Zofii. Każdy w segmencie wchodzi w ten sam przepływ: <strong>7 dni oczekiwania</strong>, e-mail retencyjny z najlepszą ofertą, potem <strong>SMS</strong>, jeśli nie otworzy. Zofia jest klientką numer 2 460. Journey nie zna jej imienia — zna jej zachowanie.</p>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="prodcard a5">Jeden kanwas Journey, tysiące klientów. Wejście do segmentu → 7 dni oczekiwania → e-mail retencyjny → otwarty? Tak: śledź wykorzystanie oferty. Nie: SMS z follow-upem call center.</div>
+    <div class="takeaway a5">Jedna platforma dla pozyskania i retencji — Karolina nie zmienia narzędzia, gdy klient zaczyna się oddalać.</div>
+  </div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">ajo.adobe.com/journeys</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>AJO — Journey "Odzyskaj klientów z ryzykiem odejścia"</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
+  <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- RET STEP 5: EMAIL FIRST -->
+<section class="slide" data-phase="ret">
+  <div class="phase-pill ret a1">02 · Retencja</div>
+  <div class="story a1">
+    <div class="numdisc a1">5</div>
+    <h2 class="htitle a2">Najpierw e-mail — trafność rodzinna</h2>
+    <p class="narr a3">Journey wysokiego ryzyka dociera do Zofii e-mailem — a <strong>Experience Decisioning</strong> już wybrał jej ofertę: codzienne korzyści, które pasują do jej życia teraz. Nie moda. Nie ogólny lifestyle.</p>
+    <div class="quote a4">"Twoja Przejrzysta karta. Codzienne korzyści dla Twojej rodziny."</div>
+    <div class="claudia-lab a4">Telefon Zofii</div>
+    <div class="prodcard a5">Skrzynka Zofii: oferta rodzinna, na której jej naprawdę zależy — wysłana we właściwym momencie z Journey wysokiego ryzyka.</div>
+    <div class="takeaway a5">E-mail otwiera rozmowę — trafność, nie kolejna promocja lifestyle.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>Telefon Zofii — e-mail powrotny, codzienne korzyści rodzinne</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--teal),var(--teal-dk));">Z</div><div class="nm">Zofia</div></div>
+  <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- RET STEP 6: WEB/APP MATCH -->
+<section class="slide" data-phase="ret">
+  <div class="phase-pill ret a1">02 · Retencja</div>
+  <div class="story a1">
+    <div class="numdisc a1">6</div>
+    <h2 class="htitle a2">Ta sama trafność — web i aplikacja</h2>
+    <p class="narr a3">Zofia jest klientką PKO od pięciu lat — ma już aplikację. Klika "Zobacz moje korzyści" w e-mailu i trafia na pkobp.pl na telefonie. Ten sam Experience Decisioning co w skrzynce.</p>
+    <div class="quote a4">"Witaj ponownie, Zofio — sprawdź nowe korzyści na zakupy spożywcze z Twoją kartą."</div>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="prodcard a5">Experience Decisioning na webie i w aplikacji — te same ranked oferty co w e-mailu, dopasowane do jej Przejrzystej karty.</div>
+    <div class="takeaway a5">Istniejący klienci, istniejąca aplikacja — ale każdy kanał opowiada tę samą, trafną historię.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>IKO / pkobp.pl — spersonalizowana oferta rodzinna dla Zofii</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--teal),var(--teal-dk));">Z</div><div class="nm">Zofia</div></div>
+  <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- RET STEP 7: PUSH COMPLETES -->
+<section class="slide" data-phase="ret">
+  <div class="phase-pill ret a1">02 · Retencja</div>
+  <div class="story a1">
+    <div class="numdisc a1">7</div>
+    <h2 class="htitle a2">Push kończy Journey</h2>
+    <p class="narr a3">Zofia reaguje przez e-mail i web — Journey wysokiego ryzyka zamyka pętlę powiadomieniem push: jej korzyści są znów aktywne. Wiadomość niesie kolejny krok — dodaj kartę do portfela — a decisioning może dołożyć dodatkowe oferty, gdy uzna, że pasują.</p>
+    <div class="quote a4">"Twoje spersonalizowane korzyści są aktywne. Dodaj kartę do portfela i zacznij korzystać już dziś."</div>
+    <div class="claudia-lab a4">Ekran Karoliny</div>
+    <div class="prodcard a5">Ten sam Journey, ostatni punkt kontaktu — push potwierdza reaktywację i prowadzi do kolejnej akcji.</div>
+    <div class="takeaway a5">E-mail, web, aplikacja, push — jeden Journey kończy się potwierdzeniem i właściwym następnym krokiem.</div>
+  </div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>Ekran blokady Zofii — push, korzyści aktywne, dodaj do portfela</span></div></div></div></div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--teal),var(--teal-dk));">Z</div><div class="nm">Zofia</div></div>
+  <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- EXECUTIVE SUMMARY -->
+<section class="slide">
+  <div class="phase-pill a1">Podsumowanie</div>
+  <div class="story wide a1">
+    <div class="numdisc a1">✓</div>
+    <h2 class="htitle a2">Pełny obraz</h2>
+    <p class="narr a3"><strong>Michał</strong> pozyskany przez współpracę z Allegro — spersonalizowana reklama, wniosek mobilny, natychmiastowa decyzja. <strong>Zofia</strong> odzyskana dzięki trafności, nie kolejnej promocji. Dwie historie klientów — jedna platforma, jedna praktyczka.</p>
+    <div class="benefit-lab a4">Co dostarcza Experience Platform</div>
+    <ul class="benefit-list a4">
+      <li><strong>Zintegrowane profile</strong> — jeden widok 360°, od anonimowej wizyty po aktywnym kliencie</li>
+      <li><strong>Współpraca partnerska</strong> — bezpieczny dla prywatności zasięg dzięki Allegro</li>
+      <li><strong>Personalizowany landing</strong> — nagłówek sterowany profilem na jednym URL</li>
+      <li><strong>Next-best-action</strong> — ranked oferty w webie i aplikacji we właściwym momencie</li>
+      <li><strong>Natychmiastowa orkiestracja</strong> — decyzja uruchamia e-mail, SMS i aplikację</li>
+      <li><strong>Skoordynowany Journey (AJO)</strong> — e-mail, SMS, push w jednym przepływie</li>
+      <li><strong>Trafność etapu życia</strong> — odzyskanie dopasowane do zachowania i kontekstu</li>
+      <li><strong>Jedna praktyczka, jeden silnik</strong> — Karolina nie zmienia narzędzia między pozyskaniem a retencją</li>
+    </ul>
+    <div class="takeaway a5">Macie już dane i aplikację. Potrzebujecie jednej warstwy, która to wszystko orkiestruje.</div>
+  </div>
+  <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
+  <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
+</section>
+
+<!-- CLOSING -->
+<section class="slide closing">
+  <div class="glow"></div>
+  <div class="closing-inner">
+    <h1 class="thanks a2">Dziękujemy</h1>
+    <img class="ad-logo a4" src="adobe-wordmark-red.svg" alt="Adobe">
+  </div>
+</section>
+
+</div>
+<div class="hint">← →</div>
+<div class="counter"><b id="cur">01</b> / <span id="tot">31</span></div>
+</div>
+<script>
+function scaleStage(){
+  const s=document.querySelector('.deck-stage');
+  const k=Math.min(innerWidth/1920,innerHeight/1080);
+  s.style.transform=`translate(${(innerWidth-1920*k)/2}px,${(innerHeight-1080*k)/2}px) scale(${k})`;
+}
+addEventListener('resize',scaleStage);
+scaleStage();
+const sl=[...document.querySelectorAll('.slide')],cur=document.getElementById('cur'),tot=document.getElementById('tot');let i=0;
+if(tot)tot.textContent=String(sl.length).padStart(2,'0');
+function slideFromHash(){
+  const m=location.hash.match(/^#(\d+)$/);
+  if(!m)return 0;
+  const n=Math.max(1,Math.min(+m[1],sl.length));
+  return n-1;
+}
+function syncHash(){
+  const want='#'+(i+1);
+  if(location.hash!==want)history.replaceState(null,'',want);
+}
+function show(n,opts){
+  const skipHash=opts&&opts.skipHash;
+  i=(n+sl.length)%sl.length;
+  sl.forEach((s,x)=>s.classList.toggle('active',x===i));
+  cur.textContent=String(i+1).padStart(2,'0');
+  const a=sl[i];
+  const dark=a.classList.contains('divider')||a.querySelector('.overview');
+  document.querySelector('.counter').style.color=dark?'rgba(255,255,255,.6)':'';
+  cur.style.color=dark?'#fff':'';
+  if(tot)tot.style.color=dark?'rgba(255,255,255,.6)':'';
+  if(!skipHash)syncHash();
+}
+show(slideFromHash(),{skipHash:true});
+syncHash();
+addEventListener('hashchange',()=>show(slideFromHash(),{skipHash:true}));
+addEventListener('keydown',e=>{
+  if([' ','ArrowRight','PageDown'].includes(e.key)){e.preventDefault();show(i+1);}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+});
+document.querySelector('.deck-viewport').addEventListener('click',e=>{
+  if(e.target.closest('a,button,iframe'))return;
+  show(i+1);
+});
+</script>
+</body>
+</html>
