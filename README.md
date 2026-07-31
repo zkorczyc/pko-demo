@@ -1,8 +1,8 @@
 # PKO Bank Polski Executive Demo
 
-Interactive story deck — **Pozyskanie (Acquisition) · Retencja (Retention)**, with a referral epilogue folded into the end of Act 1.
+Interactive story deck — **Pozyskanie (Acquisition) · Retencja (Retention)**.
 
-Ported from [swisscard/demo-unified](../../swisscard/demo-unified/) — same deck engine, rebranded and localised, scope trimmed per this demo's brief.
+**Live demo:** [https://zkorczyc.github.io/pko-demo/](https://zkorczyc.github.io/pko-demo/)
 
 Navigate with **← →**, **space**, or **click**. Jump to a slide with **`#7`** (1-based).
 
@@ -18,34 +18,39 @@ python3 -m http.server 8080
 
 The deck must be served from the `pko/` root (not `pko/demo-unified/` alone) — slide 13 embeds the real approval e-mail from `../email-templates/examples/approval-marek.html` via `<iframe>`.
 
-## Two acts (+ epilogue)
+## Two acts
 
 | Act | Persona | Card | Tagline |
 |---|---|---|---|
 | **01 Pozyskanie** | Michał Kowalski | PKO Mastercard Platinum | Zdobądź właściwego klienta |
-| *(epilogue, end of Act 1)* | Michał → PKO Polecam | — | Next best action: polecenie |
 | **02 Retencja** | Zofia Wiśniewska | Przejrzysta karta kredytowa | Odzyskaj z trafnością |
 
 **Practitioner:** Karolina Nowak (both acts)
 
-## What changed from Swisscard
+## Design notes
 
 - **Language:** Polish throughout.
-- **Colors:** PKO blue (`#0053A6`) and dark navy (`#0B2545`) replace Swisscard navy/gold; PKO red (`#C10016`) replaces Swiss red as the accent. Zofia's persona color is teal (`#0E8E6D`) instead of Sofia's gold.
-- **Referral, not a 4th act:** the original's full Act 04 (Marc → Lukas referral, separate friend persona) is folded into a 2-slide epilogue at the end of Act 1 — "Kilka tygodni później…" (Michał becomes a high-value customer, next-best-action = referral) followed by a slide explaining the real **PKO Polecam** program mechanics (register in IKO for a code → share the code → both sides meet the terms → reward).
-- **Visuals:** no real screenshots exist yet, so every "screen" is a labelled `.img-ph` placeholder (dashed box) inside a simple phone or browser chrome — swap the placeholder `<div>` for a real `<img>` when screenshots are ready. **Exception:** slide 13 (the approval e-mail) embeds the actual working HTML template we built in `pko/email-templates/`, not a placeholder.
-- **Partner collaboration:** RTCDP Collaboration partner is **Allegro** (real PKO ecosystem tie-in — Michał is a frequent Allegro shopper) instead of a travel loyalty programme.
-- **App / payment analogs:** Swisscard's app → **IKO**; TWINT → **BLIK**.
-- Act 03 "Deepening" and the full Act 04 referral narrative (Lukas-equivalent friend, WhatsApp share, fulfilment API slides) were **not built** — out of scope for this pass. The CSS/JS engine is intact if you want to extend the deck later.
+- **Colors:** PKO blue (`#0053A6`) and dark navy (`#0B2545`) as the primary palette, PKO red (`#C10016`) as the accent. Zofia's persona color is teal (`#0E8E6D`).
+- **Logo:** real PKO Bank Polski logo (`assets/pko-logo.png`) on the cover slide.
+- **Visuals:** no product screenshots exist yet, so every "screen" is a labelled `.img-ph` placeholder (dashed box) inside a simple phone or browser chrome — swap the placeholder `<div>` for a real `<img>` when screenshots are ready. **Exception:** slide 13 (the approval e-mail) embeds the actual working HTML template from `pko/email-templates/`, not a placeholder.
+- **Partner collaboration:** RTCDP Collaboration partner is **Allegro** — Michał is a frequent Allegro shopper, a real PKO ecosystem tie-in.
+- **App / payment:** **IKO** (PKO's mobile app), **BLIK** (instant payments).
+- **"Journey"** always refers to the Adobe Journey Optimizer (AJO) concept and is left untranslated in the Polish copy, to avoid clashing with genuine travel content (ubezpieczenie podróżne, etc.).
+- A referral act (member-get-member via **PKO Polecam**) is planned as a future addition — not built yet.
 
 ## Repository layout
 
 | Path | Purpose |
 |---|---|
-| `index.html` | Self-contained interactive deck (33 slides) |
-| `adobe-wordmark-red.svg` | Footer wordmark (copied from swisscard/demo-unified) |
+| `index.html` | Self-contained interactive deck (31 slides) |
+| `assets/pko-logo.png` | Real PKO Bank Polski logo |
+| `adobe-wordmark-red.svg` | Footer wordmark |
+
+## Deploy (GitHub Pages)
+
+This repo **is** the site — `index.html` at the root, no build step. Pushed to [zkorczyc/pko-demo](https://github.com/zkorczyc/pko-demo), Pages served from `main` → `/ (root)`.
 
 ## Maintenance notes
 
 - Replace `.img-ph` placeholders with real screenshots by swapping the inner `<div class="img-ph">…</div>` for an `<img>` — the surrounding `.phone-frame` / `.browser` chrome needs no changes.
-- If you extend the deck (e.g. add Act 03 or a full referral act with a friend persona), bump the `#tot` count is automatic (computed from slide count in JS) — no manual counter edits needed.
+- The slide counter (`#tot`) is computed automatically from the number of `.slide` sections in JS — no manual edits needed if you add or remove slides.
