@@ -42,7 +42,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 .bbar .d{width:11px;height:11px;border-radius:50%;background:#DCE3EE;}
 .bbar .u{margin-left:18px;font-size:14px;color:#7A8498;background:#fff;border:1px solid #E4E9F2;border-radius:6px;padding:5px 14px;flex:1;max-width:520px;}
 .browser .mockbody{flex:1;overflow:hidden;}
-.browser .mockbody img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
+.browser .mockbody img{width:100%;height:100%;object-fit:contain;object-position:top center;background:#fff;display:block;}
 .persona{position:absolute;left:120px;bottom:120px;display:flex;align-items:center;gap:14px;z-index:6;}
 .persona .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:19px;box-shadow:0 4px 12px rgba(14,42,94,.3);}
 .persona .nm{font-size:19px;font-weight:600;color:var(--ink);}
@@ -155,6 +155,19 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 .acq-left-stack .acq-bridge{margin:2px 0 4px;}
 .slide.acq-broadcast .screen.screen-product{left:860px;right:48px;top:92px;bottom:88px;height:auto;display:flex;align-items:center;justify-content:center;}
 .slide.acq-broadcast .screen.screen-product .product-shot-wrap{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+.slide.michal-confirmation .screen.screen-product{top:56px;bottom:56px;}
+.slide.michal-confirmation .screen.screen-product .product-shot-wrap{width:auto;height:100%;max-height:100%;}
+.slide.michal-confirmation .screen.screen-product .product-shot{width:auto;height:100%;max-height:100%;object-fit:contain;}
+/* Paid media panel */
+.panel{width:100%;height:100%;background:#fff;border-radius:18px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(16,32,70,.14);padding:40px 44px;overflow:hidden;}
+.panel h3{margin:0 0 20px;font-size:17px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);font-weight:700;}
+.seglist{display:flex;flex-direction:column;gap:10px;}
+.seg{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:#fff;}
+.seg .sn{font-size:18px;font-weight:600;color:var(--ink);}
+.seg .sm{font-size:14px;color:var(--soft);margin-top:2px;}
+.seg .badge{font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;}
+.seg .badge.sync{background:#E8F5E9;color:#2E7D32;}
+.seg .badge.suppress{background:#FFF3E0;color:#E65100;}
 /* Persona intro */
 .pintro{position:absolute;inset:0;display:flex;align-items:center;gap:70px;padding:0 130px;}
 .portrait{width:440px;height:660px;border-radius:26px;flex-shrink:0;position:relative;overflow:hidden;box-shadow:0 30px 70px rgba(16,32,70,.22);
@@ -354,12 +367,12 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">4</div>
     <h2 class="htitle a2">Michał poznaje ofertę</h2>
-    <p class="narr a3">Za tą stroną Karolina widzi to, czego Michał nie widzi. Pierwsze kliknięcie połączyło ID kampanii z anonimowym profilem brzegowym — <strong>Zainteresowanie Allegro Klik</strong>, wynik <strong>0.87</strong>. Wciąż anonimowy, ale personalizacja zaczęła się już przy kliknięciu.</p>
+    <p class="narr a3">Za tą stroną Karolina widzi to, czego Michał nie widzi. Pierwsze kliknięcie połączyło ID kampanii z anonimowym profilem brzegowym — <strong>Allegro Klik Interest Prediction</strong>, wynik <strong>0.87</strong>. 2 audiencje, 0 atrybutów, wciąż anonimowy — ale personalizacja zaczęła się już przy kliknięciu.</p>
     <div class="claudia-lab a4">Ekran Karoliny</div>
     <div class="prodcard a5">RTCDP zszywa ID kampanii z ECID w czasie rzeczywistym — profil rośnie, zanim ktokolwiek poda dane osobowe.</div>
     <div class="takeaway a5">Personalizacja zaczyna się o krok wcześniej, niż większość zespołów myśli.</div>
   </div>
-  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/profile</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP — profil brzegowy, wynik zainteresowania 0.87</span></div></div></div></div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">experience.adobe.com/profile/anonymous</span></div><div class="mockbody"><img src="assets/michal-anonymous-profile.png" alt="Adobe Journey Optimizer — anonimowy profil, Allegro Klik Interest Prediction 0.87"></div></div></div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -386,7 +399,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 </section>
 
 <!-- ACQ STEP 6: INSTANT DECISION -->
-<section class="slide" data-phase="acq">
+<section class="slide michal-confirmation" data-phase="acq">
   <div class="phase-pill a1">01 · Pozyskanie</div>
   <div class="story a1">
     <div class="numdisc a1">6</div>
@@ -426,11 +439,15 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="phase-pill a1">01 · Pozyskanie</div>
   <div class="story a1">
     <div class="numdisc a1">8</div>
-    <h2 class="htitle a2">SMS — jedno dotknięcie</h2>
-    <p class="narr a3">SMS przychodzi zaraz po weryfikacji — w ciągu kilku minut, ta sama wiadomość co e-mail. Michał nie musi niczego szukać.</p>
+    <h2 class="htitle a2">RCS — jedno dotknięcie</h2>
+    <p class="narr a3">Bogata wiadomość RCS przychodzi zaraz po weryfikacji — na ekranie blokady, zaraz po e-mailu. Konto aktywne, Allegro Klik aktywna, checklista kolejnych kroków i przycisk pobrania IKO — bez wpisywania linku.</p>
     <div class="takeaway a5">Kanał, który klient faktycznie otwiera od razu.</div>
   </div>
-  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>SMS — "Twoje konto z Allegro Klik zostało otwarte. Pobierz IKO: [link]"</span></div></div></div></div>
+  <div class="screen screen-device a3">
+    <div class="device-shot-wrap">
+      <img class="device-shot" src="assets/michal-rcs-confirmation.png" alt="RCS — Świetnie, Michał! Twoje konto zostało otwarte, Allegro Klik aktywna, pobierz aplikację PKO BP">
+    </div>
+  </div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -445,7 +462,6 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
     <p class="narr a3">Pobranie aplikacji <strong>IKO</strong>, karta w Google/Apple Wallet. Aktywacja to nie "zatwierdzone w systemie" — to karta gotowa do użycia jeszcze dziś.</p>
     <div class="takeaway a5">Od zatwierdzenia do pierwszej płatności — bez zbędnych kroków.</div>
   </div>
-  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>IKO — dodaj kartę Allegro Klik do portfela</span></div></div></div></div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -457,11 +473,11 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">10</div>
     <h2 class="htitle a2">Bogaty profil Michała</h2>
-    <p class="narr a3">Zunifikowany profil: źródło pozyskania, powiązania z Allegro, sygnały wydatków, zaangażowanie. Karolina widzi jednego klienta, nie silosy kanałowe.</p>
+    <p class="narr a3">Zunifikowany profil: 6 audiencji, 18 atrybutów, 6 tożsamości w jednym Identity Graph. Michał należy do segmentu <strong>Klienci bez wpływu wynagrodzenia</strong> — stąd wynik <strong>87% Likelihood to Engage</strong> dla oferty "Przeniesienie wynagrodzenia", którą widział w IKO i na pkobp.pl. Karolina widzi jednego klienta, nie silosy kanałowe.</p>
     <div class="claudia-lab a4">Ekran Karoliny</div>
     <div class="takeaway a5">Jeden profil od anonimowego kliknięcia po aktywnego posiadacza karty.</div>
   </div>
-  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/profile/michal</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP — profil Michała: pozyskanie, Allegro, wydatki, zaangażowanie</span></div></div></div></div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">experience.adobe.com/profile/michal-kowalski</span></div><div class="mockbody"><img src="assets/michal-rich-profile.png" alt="Adobe Experience Platform — bogaty profil Michała Kowalskiego, 6 audiencji, 18 atrybutów, propensity scores"></div></div></div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -512,7 +528,20 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
     <div class="prodcard a5">Dwie rzeczy dzieją się bez ruchu ze strony Karoliny: Michał trafia na <strong>listę suppresji</strong>, a aktywni klienci tacy jak on zasilają <strong>audiencję lookalike</strong> na kolejną falę pozyskania.</div>
     <div class="takeaway a5">Konwersja klienta → koniec reklam pozyskaniowych → jego profil pomaga znaleźć kolejnych takich jak on.</div>
   </div>
-  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/destinations</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP Destinations — suppresja i lookalike</span></div></div></div></div>
+  <div class="screen a3">
+    <div class="panel">
+      <h3>RTCDP · Destinations</h3>
+      <div class="seglist">
+        <div class="seg"><div><div class="sn">Klienci z aktywnym Allegro Klik — koniec reklam "Aktywuj konto"</div><div class="sm">Meta · Google · w tym Michał Kowalski</div></div><span class="badge suppress">Suppresja aktywna</span></div>
+        <div class="seg"><div><div class="sn">Aktywni użytkownicy Allegro Klik — seed lookalike</div><div class="sm">Meta Lookalike seed · 14 800 profili</div></div><span class="badge sync">Zsynchronizowano 11 min temu</span></div>
+        <div class="seg"><div><div class="sn">Wysoka aktywność na Allegro — lookalike prospecting</div><div class="sm">Meta · Google · 310 000 profili</div></div><span class="badge sync">Zsynchronizowano 4 min temu</span></div>
+      </div>
+      <div style="margin-top:28px;display:flex;gap:40px;">
+        <div><div style="font-size:14px;color:var(--soft);">Zaoszczędzone wydatki na pozyskanie</div><div class="big cu" data-to="810" data-suf=" tys. zł/kw." style="font-size:48px;color:var(--navy);">0 tys. zł/kw.</div></div>
+        <div><div style="font-size:14px;color:var(--soft);">CPA lookalike vs szerokie targetowanie</div><div class="big cu" data-to="34" data-pre="−" data-suf="%" style="font-size:56px;color:var(--red);">−0%</div></div>
+      </div>
+    </div>
+  </div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -546,7 +575,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 <!-- ZOFIA — LIFE CHANGED -->
 <section class="slide">
   <div class="pintro">
-    <div class="portrait has-photo acc-teal a1"><img src="assets/zofia-wisniewska.png" alt="Zofia Wiśniewska"><div class="tag">Życie się zmieniło</div></div>
+    <div class="portrait has-photo acc-teal a1"><img src="assets/zofia-family-life-change.png" alt="Zofia Wiśniewska z rodziną"><div class="tag">Życie się zmieniło</div></div>
     <div class="pbody a2">
       <div class="pk">Wtedy vs teraz</div>
       <h2>Jej życie się zmieniło — przekaz nie</h2>
@@ -563,12 +592,12 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">1</div>
     <h2 class="htitle a2">Trafność — nie niezadowolenie</h2>
-    <p class="narr a3">Oś czasu profilu Zofii: <strong>2019–2021</strong> zakupy online, restauracje, moda — potem życie się zmieniło. <strong>2022–dziś</strong> mąż, córka, zakupy spożywcze, apteka, BLIK. Marketing wciąż wysyłał kampanie <strong>Moda · Lifestyle</strong>. Niewłaściwy przekaz przez dwa lata.</p>
+    <p class="narr a3">Bogaty profil Zofii: 7 audiencji, 24 atrybuty. Wciąż należy do segmentów <strong>Moda i lifestyle</strong> i <strong>Restauracje i gastronomia</strong> z 2021 roku — dlatego marketing wciąż wysyłał te kampanie. Ale Propensity Scores mówią co innego: <strong>Oferta rodzinna 81%</strong> Likelihood to Engage, dużo wyżej niż Konto oszczędnościowe (68%) czy zwiększenie limitu karty (37%). Niewłaściwy przekaz przez dwa lata — dane już znały odpowiedź.</p>
     <div class="claudia-lab a4">Ekran Karoliny</div>
-    <div class="prodcard a5">Zunifikowany profil RTCDP pokazuje ewolucję kategorii wydatków zestawioną z historią kampanii. Problem nie leżał w karcie. Leżał w rozmowie.</div>
+    <div class="prodcard a5">Zunifikowany profil AEP pokazuje segmenty historyczne zestawione z propensity scores. Problem nie leżał w karcie. Leżał w rozmowie.</div>
     <div class="takeaway a5">Trafność dopasowana do etapu życia — historia, którą PKO kontroluje samodzielnie.</div>
   </div>
-  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/profile/zofia</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP — profil Zofii, oś czasu wydatków i kampanii</span></div></div></div></div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">experience.adobe.com/profile/zofia-wisniewska</span></div><div class="mockbody"><img src="assets/zofia-rich-profile.png" alt="Adobe Experience Platform — bogaty profil Zofii Wiśniewskiej, 7 audiencji, 24 atrybuty, propensity scores"></div></div></div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--teal),var(--teal-dk));">Z</div><div class="nm">Zofia</div></div>
   <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -580,12 +609,12 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">2</div>
     <h2 class="htitle a2">Wykryta zmiana etapu życia</h2>
-    <p class="narr a3">Karolina buduje segment <strong>Wysokie ryzyko odejścia — obecni posiadacze kart</strong>: spadek wydatków, wzrost BLIK, brak reakcji na e-maile. <strong>Zofia Wiśniewska jest w tej audiencji</strong> — mężatka, młoda mama, wydatki przeniosły się z mody na zakupy spożywcze. Wciąż klientka. Tylko nie ta sama, do której PKO mówiło.</p>
+    <p class="narr a3">Karolina nie klika przez kreator reguł — opisuje segment własnymi słowami w <strong>CX Coworker</strong>: spadek liczby i wartości transakcji kartą, rzadsze korzystanie z IKO, brak reakcji na e-maile i oferty w ostatnich 90 dniach. <strong>Zofia Wiśniewska jest w tej audiencji</strong> — mężatka, młoda mama, wydatki przeniosły się z mody na zakupy spożywcze. Wciąż klientka. Tylko nie ta sama, do której PKO mówiło.</p>
     <div class="claudia-lab a4">Ekran Karoliny</div>
-    <div class="prodcard a5">Reguły audiencji: spadek wydatków, zmiana udziału w portfelu, wzrost BLIK, brak zaangażowania w e-maile lub oferty od 6–12 miesięcy.</div>
+    <div class="prodcard a5">CX Coworker tłumaczy prośbę w języku naturalnym na reguły audiencji: spadek wydatków, rzadsze logowania do IKO, brak zaangażowania w e-maile lub oferty od 90 dni.</div>
     <div class="takeaway a5">Wyłapać zmianę życia wcześnie — zanim klientka po prostu odejdzie w milczeniu.</div>
   </div>
-  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/audiences/new</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP — budowa audiencji "Wysokie ryzyko odejścia"</span></div></div></div></div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">cxcoworker.adobe.com</span></div><div class="mockbody"><img src="assets/karolina-cx-coworker.png" alt="Adobe CX Coworker — Karolina opisuje w języku naturalnym segment Wysokie ryzyko odejścia"></div></div></div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
   <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -616,10 +645,10 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
     <h2 class="htitle a2">Journey dla klientów z ryzykiem odejścia — na żywo</h2>
     <p class="narr a3">Karolina publikuje jeden <strong>Journey</strong> odzyskania (AJO) dla całej audiencji <strong>Wysokie ryzyko odejścia</strong> — nie osobno dla Zofii. Każdy w segmencie wchodzi w ten sam przepływ: <strong>7 dni oczekiwania</strong>, e-mail retencyjny z najlepszą ofertą, potem <strong>SMS</strong>, jeśli nie otworzy. Zofia jest klientką numer 2 460. Journey nie zna jej imienia — zna jej zachowanie.</p>
     <div class="claudia-lab a4">Ekran Karoliny</div>
-    <div class="prodcard a5">Jeden kanwas Journey, tysiące klientów. Wejście do segmentu → 7 dni oczekiwania → e-mail retencyjny → otwarty? Tak: śledź wykorzystanie oferty. Nie: SMS z follow-upem call center.</div>
+    <div class="prodcard a5">Jeden kanwas Journey — "PKO BP Win Back Churn Customers" — tysiące klientów. Wejście do segmentu → 7 dni oczekiwania → e-mail "Zdobądź ponownie ich serca, 20% rabatu na następne zakupy" → otwarty? Tak: śledź wykorzystanie oferty. Nie: SMS z numerem call center.</div>
     <div class="takeaway a5">Jedna platforma dla pozyskania i retencji — Karolina nie zmienia narzędzia, gdy klient zaczyna się oddalać.</div>
   </div>
-  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">ajo.adobe.com/journeys</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>AJO — Journey "Odzyskaj klientów z ryzykiem odejścia"</span></div></div></div></div>
+  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">experience.adobe.com/journey-optimizer</span></div><div class="mockbody"><img src="assets/karolina-ajo-journey.png" alt="Adobe Journey Optimizer — PKO BP Win Back Churn Customers"></div></div></div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
   <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -631,13 +660,17 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">5</div>
     <h2 class="htitle a2">Najpierw e-mail — trafność rodzinna</h2>
-    <p class="narr a3">Journey wysokiego ryzyka dociera do Zofii e-mailem — a <strong>Experience Decisioning</strong> już wybrał jej ofertę: codzienne korzyści, które pasują do jej życia teraz. Nie moda. Nie ogólny lifestyle.</p>
-    <div class="quote a4">"Twoja Przejrzysta karta. Rabaty w Biedronce, Rossmannie i na stacjach Orlen — codzienne korzyści dla Twojej rodziny."</div>
+    <p class="narr a3">Journey wysokiego ryzyka dociera do Zofii e-mailem — a <strong>Experience Decisioning</strong> już wybrał jej ofertę: "Oferta rodzinna", wynik <strong>81% Likelihood to Engage</strong> z jej profilu. Nie moda. Nie ogólny lifestyle.</p>
+    <div class="quote a4">"Więcej spokoju na co dzień. Ubezpieczenie dziecka — ochrona w szkole, w domu, na wycieczkach. Ubezpieczenie życia i zdrowia — dla Ciebie i bliskich."</div>
     <div class="claudia-lab a4">Telefon Zofii</div>
     <div class="prodcard a5">Skrzynka Zofii: oferta rodzinna, na której jej naprawdę zależy — wysłana we właściwym momencie z Journey wysokiego ryzyka.</div>
     <div class="takeaway a5">E-mail otwiera rozmowę — trafność, nie kolejna promocja lifestyle.</div>
   </div>
-  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>Telefon Zofii — e-mail powrotny, codzienne korzyści rodzinne</span></div></div></div></div>
+  <div class="screen screen-device a3">
+    <div class="device-shot-wrap">
+      <img class="device-shot" src="assets/zofia-winback-email-phone.png" alt="PKO Bank Polski — e-mail do Zofii, Zadbaj o to, co ważne dla Ciebie i Twoich bliskich, oferta rodzinna">
+    </div>
+  </div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--teal),var(--teal-dk));">Z</div><div class="nm">Zofia</div></div>
   <div class="phasebar a5"><span class="ph">Pozyskanie</span><span class="ph on">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -736,6 +769,14 @@ function syncHash(){
   const want='#'+(i+1);
   if(location.hash!==want)history.replaceState(null,'',want);
 }
+const fmt=n=>n.toLocaleString('pl-PL');
+function resetCu(el){el.textContent=(el.dataset.pre||'')+'0'+(el.dataset.suf||'');}
+function countUp(el){
+  const to=+el.dataset.to,pre=el.dataset.pre||'',suf=el.dataset.suf||'',delay=+(el.dataset.delay||0),dur=1650;
+  resetCu(el);
+  setTimeout(()=>{let t0=null;(function step(ts){if(!t0)t0=ts;const p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3);
+  el.textContent=pre+fmt(Math.round(to*e))+suf;if(p<1)requestAnimationFrame(step);})(performance.now());},delay);
+}
 function show(n,opts){
   const skipHash=opts&&opts.skipHash;
   i=(n+sl.length)%sl.length;
@@ -746,6 +787,8 @@ function show(n,opts){
   document.querySelector('.counter').style.color=dark?'rgba(255,255,255,.6)':'';
   cur.style.color=dark?'#fff':'';
   if(tot)tot.style.color=dark?'rgba(255,255,255,.6)':'';
+  sl.forEach(s=>s.querySelectorAll('.cu').forEach(resetCu));
+  a.querySelectorAll('.cu').forEach(el=>countUp(el));
   if(!skipHash)syncHash();
 }
 show(slideFromHash(),{skipHash:true});
