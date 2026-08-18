@@ -86,7 +86,10 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 .tp h2{font-size:60px;font-weight:300;color:var(--navy);margin:0 0 56px;}
 .tp .row{display:flex;gap:34px;}
 .pcard{width:380px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:38px 34px;box-shadow:0 22px 54px rgba(16,32,70,.12);text-align:center;}
-.pcard .av{width:104px;height:104px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;color:#fff;font-size:44px;font-weight:300;}
+.pcard .av{width:104px;height:104px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;color:#fff;font-size:44px;font-weight:300;overflow:hidden;}
+.pcard .av.has-photo{background:none;padding:0;}
+.pcard .av.has-photo .ini{display:none;}
+.pcard .av img{width:100%;height:100%;object-fit:cover;object-position:center 15%;}
 .pcard .nm{font-size:28px;font-weight:700;color:var(--ink);}
 .pcard .rl{font-size:17px;color:var(--red);font-weight:700;letter-spacing:.04em;margin:4px 0 16px;}
 .pcard .ds{font-size:18px;color:var(--grey);line-height:1.5;min-height:130px;}
@@ -108,6 +111,12 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 /* SCREEN RIGHT */
 .screen{position:absolute;right:90px;top:118px;width:940px;height:846px;z-index:4;}
 .screen.screen-device{right:170px;width:380px;left:auto;display:flex;align-items:center;justify-content:center;}
+.device-shot-wrap{width:auto;height:100%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:transparent;}
+.device-shot{width:auto;height:100%;max-width:100%;object-fit:contain;object-position:center;display:block;background:transparent;filter:drop-shadow(0 16px 36px rgba(16,32,70,.14));}
+.screen.screen-product{left:820px;right:60px;width:auto;top:108px;bottom:108px;height:auto;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.product-shot-wrap{width:100%;max-height:100%;height:auto;overflow:hidden;border-radius:16px;box-shadow:0 24px 60px rgba(16,32,70,.14);background:#f8fafc;display:flex;align-items:center;justify-content:center;}
+.screen.screen-product .product-shot-wrap{max-height:100%;}
+.product-shot{width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center;display:block;border-radius:14px;border:1px solid #DCE3EE;background:#fff;}
 /* fp list (numbered points) */
 .fp-hero{border-left:5px solid var(--red);background:linear-gradient(120deg,#FEF3F3,#fff);padding:14px 20px;border-radius:0 12px 12px 0;margin:0 0 14px;font-size:21px;font-weight:700;color:var(--navy);line-height:1.32;}
 .fp-points{display:flex;flex-direction:column;gap:8px;margin:0 0 16px;}
@@ -115,6 +124,36 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 .fp-point .ic{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:linear-gradient(150deg,var(--navy),#04101f);color:#fff;font-size:14px;font-weight:700;}
 .fp-point .tx{font-size:16px;line-height:1.34;color:var(--ink);}
 .fp-point .tx strong{color:var(--navy);}
+/* ACQ: broadcast landscape */
+.slide.acq-broadcast .story{top:92px;left:120px;width:680px;}
+.slide.acq-broadcast .story .htitle{font-size:44px;margin:0 0 8px;line-height:1.05;}
+.slide.acq-broadcast .story .narr{font-size:19px;line-height:1.42;margin-bottom:16px;}
+.acq-left-stack{display:flex;flex-direction:column;gap:14px;}
+.acq-econ{background:linear-gradient(160deg,#163566,#0E2247);border-radius:16px;padding:20px 22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 20px 48px rgba(10,28,61,.28);}
+.acq-econ .gleam{position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,rgba(193,0,22,.16),transparent 55%);pointer-events:none;}
+.acq-econ .lab{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#ff8888;margin:0 0 6px;position:relative;}
+.acq-econ h3{font-size:22px;font-weight:700;line-height:1.15;margin:0 0 12px;position:relative;}
+.acq-funnel-h{display:grid;grid-template-columns:1fr 18px 1fr 18px 1fr;gap:4px;align-items:stretch;margin:0 0 10px;position:relative;}
+.acq-funnel-h .arr{display:grid;place-items:center;color:#ff8888;font-size:17px;font-weight:700;line-height:1;}
+.acq-funnel-h .step{border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:10px 7px;text-align:center;background:rgba(255,255,255,.08);display:flex;flex-direction:column;justify-content:center;}
+.acq-funnel-h .step.key{background:var(--red);border-color:#ff4444;box-shadow:0 0 0 4px rgba(193,0,22,.2);}
+.acq-funnel-h .step .n{display:block;font-size:20px;font-weight:300;line-height:1;margin-bottom:3px;}
+.acq-funnel-h .step .t{font-size:11px;font-weight:600;line-height:1.2;opacity:.92;}
+.acq-econ .pt{font-size:13px;line-height:1.38;color:rgba(255,255,255,.9);margin:0;position:relative;}
+.acq-rtcdp-frame{background:linear-gradient(165deg,#E8EEF8 0%,#fff 55%);border:2px solid var(--navy);border-radius:16px;padding:20px 22px;position:relative;box-shadow:0 16px 40px rgba(14,42,94,.12);}
+.acq-rtcdp-frame::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--navy),var(--red));border-radius:16px 16px 0 0;}
+.acq-rtcdp-frame .lab{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin:0 0 6px;}
+.acq-rtcdp-frame h3{font-size:22px;font-weight:700;line-height:1.2;margin:0 0 8px;color:var(--navy);}
+.acq-rtcdp-frame .frame-lead{font-size:16px;font-weight:600;color:var(--grey);margin:0 0 12px;line-height:1.4;}
+.acq-rtcdp-frame .frame-benefits{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.acq-rtcdp-frame .frame-benefit{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;}
+.acq-rtcdp-frame .frame-benefit strong{display:block;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:3px;line-height:1.2;}
+.acq-rtcdp-frame .frame-benefit span{font-size:14px;line-height:1.35;color:var(--grey);}
+.acq-bridge{font-size:17px;line-height:1.45;color:var(--grey);margin:0;}
+.acq-bridge strong{color:var(--navy);font-weight:700;}
+.acq-left-stack .acq-bridge{margin:2px 0 4px;}
+.slide.acq-broadcast .screen.screen-product{left:860px;right:48px;top:92px;bottom:88px;height:auto;display:flex;align-items:center;justify-content:center;}
+.slide.acq-broadcast .screen.screen-product .product-shot-wrap{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
 /* Persona intro */
 .pintro{position:absolute;inset:0;display:flex;align-items:center;gap:70px;padding:0 130px;}
 .portrait{width:440px;height:660px;border-radius:26px;flex-shrink:0;position:relative;overflow:hidden;box-shadow:0 30px 70px rgba(16,32,70,.22);
@@ -122,6 +161,9 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 .portrait.acc-red{background:linear-gradient(160deg,var(--red),var(--red-dk));}
 .portrait.acc-teal{background:linear-gradient(160deg,var(--teal),var(--teal-dk));}
 .portrait .ini{font-size:220px;font-weight:300;color:rgba(255,255,255,.92);}
+.portrait.has-photo .ini{display:none;}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;}
+.portrait.has-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(14,42,94,.5) 0%,transparent 38%);pointer-events:none;}
 .portrait .tag{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);z-index:1;text-shadow:0 1px 8px rgba(0,0,0,.4);}
 .pbody{flex:1;}
 .pbody .pk{font-size:18px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);font-weight:700;}
@@ -188,9 +230,9 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 <section class="slide tp">
   <h2 class="a1">Trzy postacie, jedna platforma</h2>
   <div class="row a2">
-    <div class="pcard a3"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał Kowalski</div><div class="rl">Pozyskanie</div><div class="ds">Audiencja RTCDP Collaboration z Allegro → spersonalizowana reklama → wniosek o PKO Visa INFINITE → natychmiastowa decyzja.</div><span class="tg cust">Klient</span></div>
-    <div class="pcard a4"><div class="av" style="background:linear-gradient(150deg,var(--teal),var(--teal-dk));">Z</div><div class="nm">Zofia Wiśniewska</div><div class="rl">Retencja</div><div class="ds">Klientka Przejrzystej karty kredytowej od 5 lat — życie się zmieniło, wydatki przeniosły się na BLIK. Odzyskanie przez trafność, nie kolejną kampanię modową.</div><span class="tg cust">Klientka</span></div>
-    <div class="pcard a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina Nowak</div><div class="rl">Kierowniczka ds. marketingu cyfrowego</div><div class="ds">Segmenty, Journey w AJO, decyzje next-best-action i CJA — jedna praktyczka na oba akty.</div><span class="tg prac">Praktyczka</span></div>
+    <div class="pcard a3"><div class="av has-photo"><img src="assets/michal-kowalski.png" alt="Michał Kowalski"></div><div class="nm">Michał Kowalski</div><div class="rl">Pozyskanie</div><div class="ds">Audiencja RTCDP Collaboration z Allegro → spersonalizowana reklama → konto z aktywacją Allegro Klik → natychmiastowa decyzja.</div><span class="tg cust">Klient</span></div>
+    <div class="pcard a4"><div class="av has-photo"><img src="assets/zofia-wisniewska.png" alt="Zofia Wiśniewska"></div><div class="nm">Zofia Wiśniewska</div><div class="rl">Retencja</div><div class="ds">Klientka Przejrzystej karty kredytowej od 5 lat — życie się zmieniło, wydatki przeniosły się na BLIK. Odzyskanie przez trafność, nie kolejną kampanię modową.</div><span class="tg cust">Klientka</span></div>
+    <div class="pcard a5"><div class="av has-photo"><img src="assets/karolina-nowak.png" alt="Karolina Nowak"></div><div class="nm">Karolina Nowak</div><div class="rl">Kierowniczka ds. marketingu cyfrowego</div><div class="ds">Segmenty, Journey w AJO, decyzje next-best-action i CJA — jedna praktyczka na oba akty.</div><span class="tg prac">Praktyczka</span></div>
   </div>
 </section>
 
@@ -201,13 +243,13 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <h1 class="a2">Pozyskanie</h1>
   <p class="ph-tag a3">Zdobądź właściwego klienta</p>
   <p class="ph-sub a4">Precyzyjny zasięg z poszanowaniem prywatności → spersonalizowany przekaz → natychmiastowa decyzja i pełna aktywacja na webie i w aplikacji.</p>
-  <div class="pill a5">PKO Visa INFINITE · Pozyskanie dzięki współpracy z Allegro</div>
+  <div class="pill a5">Allegro Klik · Pozyskanie dzięki współpracy z Allegro</div>
 </section>
 
 <!-- MEET KAROLINA -->
 <section class="slide">
   <div class="pintro">
-    <div class="portrait acc-red a1"><div class="ini">K</div><div class="tag">Praktyczka</div></div>
+    <div class="portrait has-photo a1"><img src="assets/karolina-nowak.png" alt="Karolina Nowak"><div class="tag">Praktyczka</div></div>
     <div class="pbody a2">
       <div class="pk">Poznaj Karolinę</div>
       <h2>Karolina Nowak, 41 lat</h2>
@@ -222,7 +264,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 <!-- MEET MICHAŁ -->
 <section class="slide">
   <div class="pintro">
-    <div class="portrait a1"><div class="ini">M</div><div class="tag">Klient</div></div>
+    <div class="portrait has-photo a1"><img src="assets/michal-kowalski.png" alt="Michał Kowalski"><div class="tag">Klient</div></div>
     <div class="pbody a2">
       <div class="pk">Kogo szuka Karolina?</div>
       <h2>Ludzi takich jak Michał.</h2>
@@ -249,7 +291,11 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
     </div>
     <div class="takeaway a5">Znajdź takich jak Michał, zanim sami Cię znajdą.</div>
   </div>
-  <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">rtcdp.adobe.com/collaboration</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>RTCDP Collaboration — audiencje PKO × Allegro</span></div></div></div></div>
+  <div class="screen screen-product a3">
+    <div class="product-shot-wrap">
+      <img class="product-shot" src="assets/rtcdp-collaboration-allegro.png" alt="Adobe RTCDP Collaboration — audiencje PKO × Allegro">
+    </div>
+  </div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--red),var(--red-dk));">K</div><div class="nm">Karolina</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -262,13 +308,17 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
     <div class="numdisc a1">2</div>
     <h2 class="htitle a2">Reklama, która mówi językiem jego codzienności</h2>
     <div class="profilebar a2"><span class="plab">Profil Michała</span><span class="pp">Aktywny kupujący online</span><span class="pp np">Częste zakupy Allegro</span><span class="pp np">Potencjał podróżniczy</span></div>
-    <p class="narr a3">Michał przegląda Instagrama. To nie zwykła reklama karty kredytowej — to sponsorowany post PKO, który nawiązuje wprost do tego, jak Michał już płaci na co dzień: zakupami na Allegro.</p>
-    <div class="quote a4">"Dużo podróżujesz i dużo wydajesz? Poznaj PKO Visa INFINITE — saloniki Priority Pass na całym świecie i limit kredytowy do 1 000 000 zł."</div>
+    <p class="narr a3">Michał przegląda Instagrama. To nie zwykła reklama karty kredytowej — to sponsorowany post PKO Bank Polski × Allegro, który mówi językiem, jakim Michał już płaci: cashbackiem za zakupy na Allegro.</p>
+    <div class="quote a4">"Zyskuj więcej z Allegro Klik. Cashback do 3% na zakupy w Allegro i nawet 100 zł miesięcznie. Aktywuj Allegro Klik w aplikacji IKO lub serwisie iPKO."</div>
     <div class="claudia-lab a4">Telefon Michała</div>
     <div class="prodcard a5">Audiencje z Collaboration aktywowane na Meta — <strong>Aktywny kupujący online</strong>, <strong>Częste zakupy Allegro</strong>, <strong>Potencjał podróżniczy</strong>.</div>
-    <div class="takeaway a5">Oferta dopasowana do tego, ile i jak Michał już wydaje.</div>
+    <div class="takeaway a5">Oferta, która nagradza to, co Michał i tak już robi — kupuje na Allegro.</div>
   </div>
-  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>Instagram — post sponsorowany PKO Visa INFINITE</span></div></div></div></div>
+  <div class="screen screen-device a3">
+    <div class="device-shot-wrap">
+      <img class="device-shot" src="assets/michal-instagram-allegro-klik.png" alt="Instagram — post sponsorowany PKO Bank Polski × Allegro, Zyskuj więcej z Allegro Klik">
+    </div>
+  </div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -281,13 +331,17 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
     <div class="numdisc a1">3</div>
     <h2 class="htitle a2">Spersonalizowany landing na telefonie</h2>
     <div class="profilebar a2"><span class="plab">Profil Michała</span><span class="pp">Częste zakupy Allegro</span><span class="pp">Kampania przypisana</span><span class="pp np">Wizyta mobilna</span></div>
-    <p class="narr a3">Michał klika reklamę i trafia na <strong>pkobp.pl</strong> na telefonie. Strona już wie, że dużo podróżuje i dużo wydaje — nagłówek mówi wprost o salonikach Priority Pass, niżej limit do 1 000 000 zł i pakiet ubezpieczeń. Wniosek trwa mniej niż 5 minut.</p>
-    <div class="quote a4">"PKO Visa INFINITE: saloniki Priority Pass, Fast Track na lotnisku Chopina i limit kredytowy do 1 000 000 zł."</div>
+    <p class="narr a3">Michał klika reklamę i trafia na <strong>pkobp.pl</strong> na telefonie. Strona już wie, że robi częste zakupy na Allegro — nagłówek mówi wprost o cashbacku do 3% i pakiecie Allegro Smart!, niżej trzy proste kroki: załóż konto, aktywuj kartę Allegro Klik, kupuj i zyskuj. Całość trwa mniej niż 5 minut.</p>
+    <div class="quote a4">"Zyskuj więcej z Allegro Klik. Cashback do 3%, Allegro Smart! na 6 miesięcy i wiele więcej korzyści — z kartą, która dopasowuje się do Ciebie."</div>
     <div class="claudia-lab a4">Ekran Karoliny</div>
     <div class="prodcard a5">Experience Decisioning dobiera baner, korzyści i CTA na podstawie profilu Michała — jeden model strony, personalizacja dla każdego odwiedzającego.</div>
     <div class="takeaway a5">Jeden URL, wiele twarzy — bez mnożenia wariantów landing page.</div>
   </div>
-  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>pkobp.pl — mobilny landing PKO Visa INFINITE</span></div></div></div></div>
+  <div class="screen screen-device a3">
+    <div class="device-shot-wrap">
+      <img class="device-shot" src="assets/michal-mobile-landing-allegro-klik.png" alt="pkobp.pl — mobilny landing, Zyskuj więcej z Allegro Klik, załóż konto i aktywuj kartę">
+    </div>
+  </div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -299,7 +353,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">4</div>
     <h2 class="htitle a2">Michał poznaje ofertę</h2>
-    <p class="narr a3">Za tą stroną Karolina widzi to, czego Michał nie widzi. Pierwsze kliknięcie połączyło ID kampanii z anonimowym profilem brzegowym — <strong>Zainteresowanie kartą podróżną</strong>, wynik <strong>0.87</strong>. Wciąż anonimowy, ale personalizacja zaczęła się już przy kliknięciu.</p>
+    <p class="narr a3">Za tą stroną Karolina widzi to, czego Michał nie widzi. Pierwsze kliknięcie połączyło ID kampanii z anonimowym profilem brzegowym — <strong>Zainteresowanie Allegro Klik</strong>, wynik <strong>0.87</strong>. Wciąż anonimowy, ale personalizacja zaczęła się już przy kliknięciu.</p>
     <div class="claudia-lab a4">Ekran Karoliny</div>
     <div class="prodcard a5">RTCDP zszywa ID kampanii z ECID w czasie rzeczywistym — profil rośnie, zanim ktokolwiek poda dane osobowe.</div>
     <div class="takeaway a5">Personalizacja zaczyna się o krok wcześniej, niż większość zespołów myśli.</div>
@@ -316,11 +370,15 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">5</div>
     <h2 class="htitle a2">Wniosek na telefonie</h2>
-    <p class="narr a3">Michał składa wniosek na urządzeniu mobilnym — cztery kroki, część pól uzupełniona automatycznie. ID wniosku zszyty z ECID. Nie ma jeszcze aplikacji IKO — to realistyczne dla nowego klienta.</p>
+    <p class="narr a3">Michał wnioskuje o konto z aktywacją Allegro Klik na urządzeniu mobilnym — cztery kroki, część pól uzupełniona automatycznie. ID wniosku zszyty z ECID. Nie ma jeszcze aplikacji IKO — to realistyczne dla nowego klienta.</p>
     <div class="claudia-lab a4">Telefon Michała</div>
     <div class="takeaway a5">Realistyczna droga: mobile web najpierw, aplikacja po zatwierdzeniu.</div>
   </div>
-  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>pkobp.pl — wniosek o PKO Visa INFINITE, krok 3 z 4</span></div></div></div></div>
+  <div class="screen screen-device a3">
+    <div class="device-shot-wrap">
+      <img class="device-shot" src="assets/michal-account-signup.png" alt="pkobp.pl — Załóż konto w PKO Banku Polskim, krok 1 z 4, dane osobowe Michała Kowalskiego">
+    </div>
+  </div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -332,7 +390,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">6</div>
     <h2 class="htitle a2">Natychmiastowa decyzja</h2>
-    <p class="narr a3">Michał wysyła wniosek — przy natychmiastowej decyzji ekran sukcesu pojawia się od razu. W tle trwa ocena zdolności kredytowej i weryfikacja tożsamości; strona mówi: sprawdź e-mail i SMS w ciągu kilku minut. Pobranie aplikacji IKO to CTA na ekranie.</p>
+    <p class="narr a3">Michał wysyła wniosek — przy natychmiastowej decyzji ekran sukcesu pojawia się od razu. W tle trwa weryfikacja tożsamości i otwarcie konta; strona mówi: sprawdź e-mail i SMS w ciągu kilku minut. Pobranie aplikacji IKO to CTA na ekranie.</p>
     <div class="takeaway a5">Aktywacja nie czeka na papierową pocztę — zaczyna się natychmiast.</div>
   </div>
   <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>Ekran potwierdzenia — wniosek przyjęty, sprawdź e-mail</span></div></div></div></div>
@@ -367,7 +425,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
     <p class="narr a3">SMS przychodzi zaraz po weryfikacji — w ciągu kilku minut, ta sama wiadomość co e-mail. Michał nie musi niczego szukać.</p>
     <div class="takeaway a5">Kanał, który klient faktycznie otwiera od razu.</div>
   </div>
-  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>SMS — "Twoja karta PKO Visa INFINITE została zatwierdzona. Pobierz IKO: [link]"</span></div></div></div></div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>SMS — "Twoje konto z Allegro Klik zostało otwarte. Pobierz IKO: [link]"</span></div></div></div></div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -382,7 +440,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
     <p class="narr a3">Pobranie aplikacji <strong>IKO</strong>, karta w Google/Apple Wallet. Aktywacja to nie "zatwierdzone w systemie" — to karta gotowa do użycia jeszcze dziś.</p>
     <div class="takeaway a5">Od zatwierdzenia do pierwszej płatności — bez zbędnych kroków.</div>
   </div>
-  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>IKO — dodaj kartę PKO Visa INFINITE do portfela</span></div></div></div></div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>IKO — dodaj kartę Allegro Klik do portfela</span></div></div></div></div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -410,10 +468,10 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">11</div>
     <h2 class="htitle a2">Ekran główny aplikacji — dopasowany dla Michała</h2>
-    <p class="narr a3">Michał otwiera IKO po zatwierdzeniu — ekran główny od razu dopasowany. Decisioning stawia saloniki Priority Pass i pakiet ubezpieczeń na górze; płatności BLIK i historia Allegro widoczne niżej.</p>
+    <p class="narr a3">Michał otwiera IKO po zatwierdzeniu — ekran główny od razu dopasowany. Decisioning stawia status cashbacku Allegro Klik i aktualne promocje Allegro na górze; płatności BLIK i historia zakupów widoczne niżej.</p>
     <div class="takeaway a5">Personalizacja od pierwszego dnia, nie po miesiącach danych.</div>
   </div>
-  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>IKO — ekran główny, ranking ofert dla Michała</span></div></div></div></div>
+  <div class="screen screen-device a3"><div class="phone-frame"><div class="inner"><div class="img-ph">Zrzut ekranu<span>IKO — ekran główny, status Allegro Klik i promocje dla Michała</span></div></div></div></div>
   <div class="persona a5"><div class="av" style="background:linear-gradient(150deg,var(--navy),#04101f);">M</div><div class="nm">Michał</div></div>
   <div class="phasebar a5"><span class="ph on">Pozyskanie</span><span class="ph">Retencja</span></div>
   <div class="adobe-foot"><img src="adobe-wordmark-red.svg" alt="Adobe"></div>
@@ -425,7 +483,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">12</div>
     <h2 class="htitle a2">Web zgodny z aplikacją</h2>
-    <p class="narr a3">Michał loguje się na pkobp.pl — ekran główny posiadacza PKO Visa INFINITE z dostępem do saloników Priority Pass, pakietem ubezpieczeń i rabatami Visa Benefit. Ten sam silnik Experience Decisioning co w aplikacji.</p>
+    <p class="narr a3">Michał loguje się na pkobp.pl — ekran główny posiadacza Allegro Klik z widocznym stanem cashbacku, aktywną promocją Allegro Smart! i historią zakupów. Ten sam silnik Experience Decisioning co w aplikacji.</p>
     <div class="takeaway a5">Ta sama rozmowa — telefon czy przeglądarka, nieważne.</div>
   </div>
   <div class="screen a3"><div class="browser"><div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="u">pkobp.pl/moje-konto</span></div><div class="mockbody"><div class="img-ph">Zrzut ekranu<span>pkobp.pl — zalogowany profil Michała</span></div></div></div></div>
@@ -440,7 +498,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="story a1">
     <div class="numdisc a1">13</div>
     <h2 class="htitle a2">Mądrzejszy paid media — automatycznie</h2>
-    <p class="narr a3">Michał właśnie aktywował PKO Visa INFINITE — PKO przestaje pokazywać mu reklamy "Złóż wniosek". Jednocześnie jego profil zasila grupę aktywowanych klientów, która pomaga znaleźć kolejnego Michała.</p>
+    <p class="narr a3">Michał właśnie aktywował Allegro Klik — PKO przestaje pokazywać mu reklamy "Złóż wniosek". Jednocześnie jego profil zasila grupę aktywowanych klientów, która pomaga znaleźć kolejnego Michała.</p>
     <div class="claudia-lab a4">Ekran Karoliny</div>
     <div class="prodcard a5">Dwie rzeczy dzieją się bez ruchu ze strony Karoliny: Michał trafia na <strong>listę suppresji</strong>, a aktywni klienci tacy jak on zasilają <strong>audiencję lookalike</strong> na kolejną falę pozyskania.</div>
     <div class="takeaway a5">Konwersja klienta → koniec reklam pozyskaniowych → jego profil pomaga znaleźć kolejnych takich jak on.</div>
@@ -464,7 +522,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 <!-- MEET ZOFIA -->
 <section class="slide">
   <div class="pintro">
-    <div class="portrait acc-teal a1"><div class="ini">Z</div><div class="tag">Retencja</div></div>
+    <div class="portrait has-photo acc-teal a1"><img src="assets/zofia-wisniewska.png" alt="Zofia Wiśniewska"><div class="tag">Retencja</div></div>
     <div class="pbody a2">
       <div class="pk">Poznaj Zofię</div>
       <h2>Zofia Wiśniewska, 34 lata</h2>
@@ -479,7 +537,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 <!-- ZOFIA — LIFE CHANGED -->
 <section class="slide">
   <div class="pintro">
-    <div class="portrait acc-teal a1"><div class="ini">Z</div><div class="tag">Życie się zmieniło</div></div>
+    <div class="portrait has-photo acc-teal a1"><img src="assets/zofia-wisniewska.png" alt="Zofia Wiśniewska"><div class="tag">Życie się zmieniło</div></div>
     <div class="pbody a2">
       <div class="pk">Wtedy vs teraz</div>
       <h2>Jej życie się zmieniło — przekaz nie</h2>
