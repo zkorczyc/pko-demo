@@ -64,12 +64,12 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 .cover .glow{position:absolute;inset:0;background:radial-gradient(ellipse at 78% 12%,rgba(193,0,22,.12),transparent 50%),radial-gradient(ellipse at 12% 92%,rgba(11,37,69,.10),transparent 52%);pointer-events:none;}
 .cover-inner{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;padding:0 120px;}
 .cv-lock{display:flex;align-items:center;gap:54px;margin-bottom:34px;}
-.cv-lock .cv-pko-logo{height:88px;}
+.cv-lock .cv-pko-logo{height:112px;}
 .cv-lock .x{font-size:52px;color:#C4CCDA;font-weight:300;}
 .cv-lock .ad{height:78px;}
 .cv-rule{width:120px;height:3px;background:var(--red);margin:6px auto 30px;border-radius:2px;}
 .cv-title{font-size:104px;font-weight:300;color:var(--navy);line-height:.98;letter-spacing:-.01em;margin:0;}
-.cv-sub{font-size:32px;font-weight:600;color:var(--red);margin:18px 0 0;letter-spacing:.02em;}
+.cv-sub{font-size:32px;font-weight:600;color:var(--navy-mid);margin:18px 0 0;letter-spacing:.02em;}
 .cv-meta{font-size:20px;color:var(--soft);margin-top:26px;letter-spacing:.22em;text-transform:uppercase;}
 /* Acts overview (dark) */
 .overview{position:absolute;inset:0;background:linear-gradient(170deg,#0B2545 0%,#0053A6 65%,#0B3E82 100%);overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
@@ -78,6 +78,7 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 .overview .sub{position:relative;font-size:22px;color:rgba(255,255,255,.75);max-width:1080px;line-height:1.5;padding-left:120px;margin-bottom:70px;}
 .act-chain{position:relative;display:flex;align-items:center;justify-content:center;gap:26px;padding:0 120px;}
 .act-chain .node{width:300px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:26px 24px;text-align:center;}
+.act-chain .node .nt{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px;}
 .act-chain .node .n{width:48px;height:48px;border-radius:50%;background:var(--red);display:grid;place-items:center;margin:0 auto 14px;font-weight:700;color:#fff;font-size:18px;}
 .act-chain .node .nl{font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;}
 .act-chain .node .ns{font-size:15px;color:rgba(255,255,255,.68);line-height:1.4;}
@@ -235,8 +236,9 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
     </div>
     <div class="cv-rule a3"></div>
     <h1 class="cv-title a3">Jedna platforma.<br>Każdy sygnał.</h1>
-    <p class="cv-sub a4">Pozyskanie · Retencja</p>
-    <p class="cv-meta a5">PKO Bank Polski · Lipiec 2026</p>
+    <p class="cv-sub a4">Od pierwszego kontaktu do trwałej relacji</p>
+    <p class="cv-meta a5">Pozyskanie · Zaangażowanie · Retencja</p>
+    <p class="cv-meta a5">PKO Bank Polski · Sierpień 2026</p>
   </div>
 </section>
 
@@ -244,14 +246,14 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 <section class="slide">
   <div class="overview">
     <div class="sea"></div>
-    <h2 class="a1">Dwa akty, jedna platforma</h2>
+    <h2 class="a1">Od pierwszego kontaktu do wieloletniej relacji</h2>
     <p class="sub a2">Michał trafia do PKO, zanim bank wie, kim jest. Zofia jest klientką od lat, ale jej zachowanie zaczyna się zmieniać. Adobe pomaga zareagować we właściwym momencie — zarówno gdy relacja dopiero się zaczyna, jak i wtedy, gdy trzeba ją odbudować.</p>
     <div class="act-chain a3">
-      <div class="node"><div class="n">1</div><div class="nl">Reklama i wniosek</div><div class="ns">Pozyskanie — Michał</div></div>
+      <div class="node"><div class="nt">Michał</div><div class="n">1</div><div class="nl">Pozyskanie</div><div class="ns">Od pierwszego kontaktu do klienta</div></div>
       <div class="arr">→</div>
-      <div class="node"><div class="n">2</div><div class="nl">Aktywacja</div><div class="ns">Karta w portfelu, dopasowane oferty</div></div>
+      <div class="node"><div class="nt">Relacja</div><div class="n">2</div><div class="nl">Zaangażowanie</div><div class="ns">Od aktywacji do regularnego korzystania</div></div>
       <div class="arr">→</div>
-      <div class="node"><div class="n">3</div><div class="nl">Odzyskiwanie</div><div class="ns">Retencja — Zofia</div></div>
+      <div class="node"><div class="nt">Zofia</div><div class="n">3</div><div class="nl">Retencja</div><div class="ns">Od sygnału zmiany do właściwej reakcji</div></div>
     </div>
   </div>
 </section>
