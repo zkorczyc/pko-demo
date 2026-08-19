@@ -74,8 +74,8 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 /* Acts overview (dark) */
 .overview{position:absolute;inset:0;background:linear-gradient(170deg,#0B2545 0%,#0053A6 65%,#0B3E82 100%);overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
 .overview .sea{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 18%,rgba(255,255,255,.08),transparent 55%);}
-.overview h2{position:relative;font-size:60px;font-weight:800;color:#fff;letter-spacing:.01em;margin:0 0 18px;padding-left:120px;}
-.overview .sub{position:relative;font-size:22px;color:rgba(255,255,255,.75);max-width:1080px;line-height:1.5;padding-left:120px;margin-bottom:70px;}
+.overview h2{position:absolute;top:84px;left:120px;font-size:60px;font-weight:800;color:#fff;letter-spacing:.01em;margin:0;max-width:1680px;}
+.overview .sub{position:absolute;top:172px;left:120px;font-size:22px;color:rgba(255,255,255,.75);max-width:1080px;line-height:1.5;margin:0;}
 .act-chain{position:relative;display:flex;align-items:center;justify-content:center;gap:26px;padding:0 120px;}
 .act-chain .node{width:300px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:26px 24px;text-align:center;}
 .act-chain .node .nt{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px;}
@@ -83,6 +83,20 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 .act-chain .node .nl{font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;}
 .act-chain .node .ns{font-size:15px;color:rgba(255,255,255,.68);line-height:1.4;}
 .act-chain .arr{font-size:30px;color:rgba(255,255,255,.5);}
+/* Journey path (animated overview) */
+.jpath{fill:none;stroke:rgba(255,255,255,.9);stroke-width:4;stroke-linecap:round;stroke-dasharray:2800;stroke-dashoffset:2800;opacity:0;}
+.slide.active .jpath{animation:draw 2.8s .5s ease forwards,jfade .9s .5s both cubic-bezier(.22,1,.36,1);}
+@keyframes draw{to{stroke-dashoffset:0;}}
+.jnode{position:absolute;left:0;top:0;transform:translate(-50%,-38px);text-align:center;opacity:0;width:200px;}
+.slide.active .jnode{animation:jfade .9s .5s both cubic-bezier(.22,1,.36,1);}
+.slide.active .jnode .disc{animation:pop .9s .5s both cubic-bezier(.22,1,.36,1);}
+@keyframes jfade{from{opacity:0}to{opacity:1}}
+.jnode .disc{width:76px;height:76px;border-radius:50%;background:#fff;display:grid;place-items:center;margin:0 auto 10px;box-shadow:0 10px 28px rgba(0,0,0,.22);color:var(--red);}
+.jnode .jicon{width:34px;height:34px;display:block;}
+.jnode .jicon svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.jnode .nt{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px;}
+.jnode .nl{font-size:20px;font-weight:700;color:#fff;}
+.jnode .ns{font-size:13px;color:rgba(255,255,255,.65);margin-top:2px;line-height:1.35;}
 /* Two/three perspectives */
 .tp{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .tp h2{font-size:60px;font-weight:300;color:var(--navy);margin:0 0 56px;}
@@ -247,13 +261,33 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
   <div class="overview">
     <div class="sea"></div>
     <h2 class="a1">Od pierwszego kontaktu do wieloletniej relacji</h2>
-    <p class="sub a2">Każdy etap relacji wymaga innego podejścia — od skutecznego pozyskania, przez budowanie zaangażowania, po rozpoznanie zmieniających się potrzeb klienta.</p>
-    <div class="act-chain a3">
-      <div class="node"><div class="nt">Nowy klient</div><div class="n">1</div><div class="nl">Pozyskanie</div><div class="ns">Od pierwszego kontaktu do klienta</div></div>
-      <div class="arr">→</div>
-      <div class="node"><div class="nt">Relacja</div><div class="n">2</div><div class="nl">Zaangażowanie</div><div class="ns">Od aktywacji do regularnego korzystania</div></div>
-      <div class="arr">→</div>
-      <div class="node"><div class="nt">Obecny klient</div><div class="n">3</div><div class="nl">Utrzymanie klienta</div><div class="ns">Od sygnału zmiany do właściwej reakcji</div></div>
+    <p class="sub a2">Jedna relacja, wiele momentów. Dane i kontekst pozwalają dopasowywać kolejne doświadczenia — od pozyskania po utrzymanie klienta.</p>
+    <svg class="journey-svg" style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 1920 1080" aria-hidden="true">
+      <path class="jpath" d="M 120 540 C 320 540 380 460 560 460 C 740 460 800 540 980 540 C 1160 540 1220 460 1400 460 C 1580 460 1640 540 1800 540"/>
+    </svg>
+    <div class="jnode">
+      <div class="disc"><span class="jicon"><svg viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span></div>
+      <div class="nt">01 — Dotarcie</div><div class="nl">Pozyskanie</div><div class="ns">Właściwy klient</div>
+    </div>
+    <div class="jnode">
+      <div class="disc"><span class="jicon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18"/><path d="M8 21h8"/><path d="M12 18v3"/></svg></span></div>
+      <div class="nt">02 — Pierwszy kontakt</div><div class="nl">Personalizacja</div><div class="ns">Właściwy przekaz</div>
+    </div>
+    <div class="jnode">
+      <div class="disc"><span class="jicon"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></span></div>
+      <div class="nt">03 — Nowy klient</div><div class="nl">Aktywacja</div><div class="ns">Pierwsze doświadczenia</div>
+    </div>
+    <div class="jnode">
+      <div class="disc"><span class="jicon"><svg viewBox="0 0 24 24"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg></span></div>
+      <div class="nt">04 — Zaangażowanie</div><div class="nl">Relacja</div><div class="ns">Kolejne najlepsze działania</div>
+    </div>
+    <div class="jnode">
+      <div class="disc"><span class="jicon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span></div>
+      <div class="nt">05 — Zmiana zachowania</div><div class="nl">Utrzymanie klienta</div><div class="ns">Wczesne rozpoznanie ryzyka</div>
+    </div>
+    <div class="jnode">
+      <div class="disc"><span class="jicon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span></div>
+      <div class="nt">06 — Dalsza relacja</div><div class="nl">Personalizacja</div><div class="ns">Nowe potrzeby, nowe decyzje</div>
     </div>
   </div>
 </section>
@@ -286,9 +320,9 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
       <div class="pk">Poznaj Ewelinę</div>
       <h2>Ewelina Nowak, 41 lat</h2>
       <p class="pr">Kierowniczka ds. marketingu cyfrowego, PKO Bank Polski</p>
-      <div class="pblock"><div class="bl">Odpowiedzialność</div><div class="bt">Odpowiada za efektywność pozyskania, utrzymanie klienta, program poleceń i raportowanie CJA dla wszystkich produktów kartowych.</div></div>
-      <div class="pblock"><div class="bl">Dzisiejszy stack</div><div class="bt">PKO już dziś prowadzi <strong>e-maile wyzwalane zdarzeniami</strong> i automatyzację marketingu. Luka nie polega na braku automatyzacji — kanały działają na <strong>osobnych danych</strong>, strony lądowania trzeba budować osobno dla <strong>każdego wariantu kampanii</strong>, a zespoły nie widzą jednego klienta na <strong>jednym profilu</strong> — od reklamy aż po odzyskanie.</div></div>
-      <div class="pblock"><div class="bl">Co się zmienia</div><div class="bt"><strong>Zintegrowane profile</strong> · <strong>spersonalizowane strony lądowania</strong> · <strong>decyzje next-best-action</strong> · <strong>skoordynowany Journey w AJO</strong> na wielu kanałach.</div></div>
+      <div class="pblock"><div class="bl">Odpowiedzialność</div><div class="bt">Odpowiada za efektywność pozyskania i utrzymania klientów oraz spójność działań marketingowych w kanałach cyfrowych.</div></div>
+      <div class="pblock"><div class="bl">Dzisiaj</div><div class="bt">PKO już dziś wykorzystuje <strong>automatyzację marketingu</strong> i komunikację wyzwalaną zdarzeniami. Wyzwaniem pozostaje jednak łączenie danych, decyzji i kanałów w jeden spójny obraz klienta — od pierwszego kontaktu po wieloletnią relację.</div></div>
+      <div class="pblock"><div class="bl">Cel</div><div class="bt"><strong>Zintegrowane profile</strong> · <strong>Personalizacja w czasie rzeczywistym</strong> · <strong>Experience Decisioning</strong> · <strong>Adobe Journey Optimizer</strong></div></div>
     </div>
   </div>
 </section>
@@ -296,13 +330,13 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1628;fon
 <!-- MEET MICHAŁ -->
 <section class="slide">
   <div class="pintro">
-    <div class="portrait has-photo a1"><img src="assets/michal-kowalski.png" alt="Michał Kowalski"><div class="tag">Klient</div></div>
+    <div class="portrait has-photo a1"><img src="assets/michal-kowalski.png" alt="Michał Kowalski"><div class="tag">Potencjalny klient</div></div>
     <div class="pbody a2">
       <div class="pk">Kogo szuka Ewelina?</div>
       <h2>Ludzi takich jak Michał.</h2>
       <p class="pr">Michał Kowalski, 38 lat · Kierownik projektu · Warszawa</p>
-      <div class="pblock"><div class="bl">Kim jest</div><div class="bt">Udana kariera, napięty grafik — regularnie kupuje online i kilka razy w roku podróżuje służbowo lub prywatnie za granicę.</div></div>
-      <div class="pblock"><div class="bl">Dzisiejsza aktywność</div><div class="bt">Aktywny użytkownik <strong>Allegro</strong> — częste zakupy online, czasem rezerwuje loty i hotele. <strong>Nie jest jeszcze klientem PKO.</strong> Idealny kandydat do pozyskania: wysoka siła nabywcza, duża aktywność cyfrowa.</div></div>
+      <div class="pblock"><div class="bl">Kim jest</div><div class="bt">Aktywny zawodowo, dużo korzysta z kanałów cyfrowych, regularnie kupuje online i kilka razy w roku podróżuje służbowo lub prywatnie.</div></div>
+      <div class="pblock"><div class="bl">Z perspektywy PKO</div><div class="bt">Michał nie jest jeszcze klientem PKO. Bank nie zna go jako konkretnej osoby — ale jego zachowania odpowiadają profilowi klienta, którego PKO chce pozyskać.</div></div>
     </div>
   </div>
 </section>
@@ -806,8 +840,21 @@ function scaleStage(){
   const k=Math.min(innerWidth/1920,innerHeight/1080);
   s.style.transform=`translate(${(innerWidth-1920*k)/2}px,${(innerHeight-1080*k)/2}px) scale(${k})`;
 }
-addEventListener('resize',scaleStage);
+function alignJourneyNodes(){
+  const path=document.querySelector('.jpath');
+  const nodes=[...document.querySelectorAll('.jnode')];
+  if(!path||!nodes.length)return;
+  const len=path.getTotalLength();
+  if(!len)return;
+  nodes.forEach((node,i)=>{
+    const pt=path.getPointAtLength(len*(i/(nodes.length-1)));
+    node.style.left=pt.x+'px';
+    node.style.top=pt.y+'px';
+  });
+}
+addEventListener('resize',()=>{scaleStage();alignJourneyNodes();});
 scaleStage();
+requestAnimationFrame(()=>requestAnimationFrame(alignJourneyNodes));
 const sl=[...document.querySelectorAll('.slide')],cur=document.getElementById('cur'),tot=document.getElementById('tot');let i=0;
 if(tot)tot.textContent=String(sl.length).padStart(2,'0');
 function slideFromHash(){
